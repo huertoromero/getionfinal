@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/Pdf/boletaVenta.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/Compras/mostrarLineaCompra.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/Ventas/nuevaVenta.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/Empleados/nuevoEmpleados.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/Pdf/reporteDetalleCompra.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/finalgestion/ventanaPrincipal.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/Conceptos/Conceptos.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/Ventas/reporteVentas.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/Pdf/PDFventasTotalCliente.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/Empleados/actualizarGrupoFamiliar.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/Proveedores/nuevoProveedor.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/Conceptos/nuevoConcepto.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/Clientes/listadoDeClientes.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/detalleVenta/detalleVenta.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/Pdf/CrearConexion.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/Conceptos/actualizarConcepto.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/Pdf/GenerarPDFGrupoFamiliar.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/Pdf/GenerarPDFClientes.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/Pdf/PDFventasClienteyFecha.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/Clientes/nuevoCliente.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/Clases/Salario.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/Empleados/historialEmpleados.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/Pdf/PDFReporteVentasFecha.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/finalgestion/Main.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/Pdf/GenerarPDFProveedores.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/Pdf/GenerarPDFInsumos.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/Pdf/reporteDetalleVenta.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/Pdf/GenerarPDFProductos.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/BaseDeDatos/Operaciones.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/finalgestion/inicio.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/finalgestion/cambiarContraseña.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/Pdf/generarPDFReporteCompras.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/BaseDeDatos/Conexion.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/Empleados/listadoEmpleados.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/Compras/nuevaCompra.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/Empleados/listadoGrupoFamiliar.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/Clases/Usuario.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/Pdf/GenerarPDFServicios.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/Pdf/GenerarPDFEmpleados.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/finalgestion/logueo.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/finalgestion/acercaDe.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/Clases/Empleados.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/Pdf/boletaPago.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/Empleados/nuevoGrupo.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/Liquidacion/reporteLiquidacion.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/Conceptos/listadosConceptos.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/Imagenes/elsalon.png</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/Ventas/mostrarLineaVenta.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/Pdf/generarPDFReporteProveedor.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/Compras/reporteCompras.java</file>
+            <file>file:/D:/Escritorio/facultad/Gestion%20de%20Datos/Gestión%20de%20datos%20-%20El%20salón/gestion-salon-master/src/Pdf/PDFreporteTotalVentas.java</file>
+        </group>
+    </open-files>
+</project-private>
