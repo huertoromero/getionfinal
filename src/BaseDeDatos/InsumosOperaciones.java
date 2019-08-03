@@ -19,7 +19,7 @@ public class InsumosOperaciones {
     public void listadeInsumos() {
         con.conectarBaseDeDatos();
         try {
-            PreparedStatement pstm = con.getConnection().prepareStatement("SELECT ins.idInsumo, ins.nombre, ins.cantidad, ins.unidad_cantidad_uso FROM insumo ins");
+            PreparedStatement pstm = con.getConnection().prepareStatement("SELECT ins.idInsumo, ins.nombre, ins.cantidad, ins.unidad_cantidad_uso, prov.RazonSocial FROM insumo ins LEFT JOIN proveedor as prov ON ins.proveedor_id=prov.idProveedor");
             ResultSet res = pstm.executeQuery();
             ResultSetMetaData rsmd = res.getMetaData();
             int cantidadColumnas = rsmd.getColumnCount();
@@ -37,31 +37,38 @@ public class InsumosOperaciones {
         }
     }
     
-    public void nuevoInsumo(String nombre, int cantidad, int cantidadUso) {
+    public void nuevoInsumo(String nombre, int cantidad, int cantidadUso,int proveedor) {
         try {
             con.conectarBaseDeDatos();
-            PreparedStatement pstm = con.getConnection().prepareStatement("INSERT into insumo(nombre, cantidad, unidad_cantidad_uso) values(?,?,?)");
+            PreparedStatement pstm = con.getConnection().prepareStatement("INSERT into insumo(nombre, cantidad, unidad_cantidad_uso, proveedor_id) values(?,?,?,?)");
             pstm.setString(1, nombre);
             pstm.setInt(2, cantidad);
             pstm.setInt(3, cantidadUso);
+            pstm.setInt(4,proveedor);
             pstm.execute();
             pstm.close();
             JOptionPane.showMessageDialog(null, "Registro Completo", "FELICIDADES", JOptionPane.INFORMATION_MESSAGE);
             con.desconectarBaseDeDatos();
-            nuevoServicio.nuevo();
+            //nuevoServicio.nuevo();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "No se registro el servicio" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }
     
-    public void actualizarInsumo(int codigo, String nombre, int cantidad, int cantidadUsos) {
+    public void actualizarInsumo(int codigo, String nombre, int cantidad, int cantidadUsos,int proveedor) {
         try {
             con.conectarBaseDeDatos();
             System.out.println(nombre);
-            PreparedStatement pstm = con.getConnection().prepareStatement("UPDATE insumo set nombre = ?, cantidad= ?, unidad_cantidad_uso=? WHERE idInsumo =" + codigo); // puede haber error, en el ?
+            PreparedStatement pstm = null;
+            if(proveedor == 0){
+                pstm = con.getConnection().prepareStatement("UPDATE insumo set nombre = ?, cantidad= ?, unidad_cantidad_uso=? WHERE idInsumo =" + codigo); // puede haber error, en el ?
+            }else{
+                pstm = con.getConnection().prepareStatement("UPDATE insumo set nombre = ?, cantidad= ?, unidad_cantidad_uso=?, proveedor_id=? WHERE idInsumo =" + codigo); // puede haber error, en el ?
+                pstm.setInt(4, proveedor);
+            }
             pstm.setString(1, nombre);
-            pstm.setFloat(2, cantidad);
-            pstm.setFloat(3, cantidadUsos);
+            pstm.setInt(2, cantidad);
+            pstm.setInt(3, cantidadUsos);
             pstm.execute();
             pstm.close();
             JOptionPane.showMessageDialog(null, "Insumo Actualizado", "Gracias", JOptionPane.INFORMATION_MESSAGE);

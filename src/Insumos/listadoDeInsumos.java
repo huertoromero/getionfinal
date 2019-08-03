@@ -10,7 +10,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class listadoDeInsumos extends javax.swing.JFrame {
 
-    Insumos ins = new Insumos();
+    static Insumos ins = new Insumos();
     public static DefaultTableModel m;
     public String strTituloPDF = "UTN - FRT";
 
@@ -49,11 +49,11 @@ public class listadoDeInsumos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Codigo", "Nombre", "cantidad", "Usos por unidad"
+                "Codigo", "Nombre", "cantidad", "Usos por unidad", "Proveedor"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -67,13 +67,13 @@ public class listadoDeInsumos extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(listaInsumos);
 
-        jLabel1.setFont(new java.awt.Font("Courier New", 1, 18));
+        jLabel1.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(-1,true));
         jLabel1.setText("BUSCAR:");
 
-        txtBuscar.setFont(new java.awt.Font("Tahoma", 1, 18));
+        txtBuscar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
-        btnBuscar.setFont(new java.awt.Font("Tahoma", 1, 14));
+        btnBuscar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/buscar.png"))); // NOI18N
         btnBuscar.setText("BUSCAR");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -82,7 +82,7 @@ public class listadoDeInsumos extends javax.swing.JFrame {
             }
         });
 
-        btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 14));
+        btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cancelar.png"))); // NOI18N
         btnCancelar.setText("CANCELAR");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -137,7 +137,7 @@ public class listadoDeInsumos extends javax.swing.JFrame {
 
         btnRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/nuevo.png"))); // NOI18N
         btnRegistrar.setText("Registrar");
-        btnRegistrar.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
+        btnRegistrar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnRegistrar.setFocusable(false);
         btnRegistrar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnRegistrar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -263,7 +263,6 @@ public class listadoDeInsumos extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
      txtBuscar.requestFocus();
      tabla();
-     ins.listadoInsumos();
     }//GEN-LAST:event_formWindowOpened
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
@@ -282,10 +281,11 @@ public class listadoDeInsumos extends javax.swing.JFrame {
         ni.setVisible(true);
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
-    private void tabla(){
-     String[] titulos ={"Codigo","Nombre","Cantidad", "Cantidad de usos por unidad"};
+    public static void tabla(){
+     String[] titulos ={"Codigo","Nombre","Cantidad", "Cantidad de usos por unidad","Proveedor"};
      m = new DefaultTableModel(null,titulos);
      listaInsumos.setModel(m);
+     ins.listadoInsumos();
     }
 
     public static void main(String args[]) {

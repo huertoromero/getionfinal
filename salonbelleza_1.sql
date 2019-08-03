@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-07-2019 a las 09:02:32
--- Versión del servidor: 10.3.16-MariaDB
--- Versión de PHP: 7.2.20
+-- Tiempo de generación: 04-08-2019 a las 00:39:39
+-- Versión del servidor: 10.1.31-MariaDB
+-- Versión de PHP: 7.1.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -276,20 +276,20 @@ CREATE TABLE `insumo` (
 -- Volcado de datos para la tabla `insumo`
 --
 
-INSERT INTO `insumo` (`idInsumo`, `nombre`, `cantidad`, `unidad_cantidad_uso`, `disponibilidad`,`proveedor_id`) VALUES
-(1, 'Shampoo Head and Shouders', 3, 10, 30,NULL),
-(2, 'Acondicionador Nieva', 4, 5, 20,NULL),
-(3, 'Tintura Inoa Supreme Loreal', 3, 30, 90,NULL),
-(4, 'rubor smart shade', 10, 10, 100,NULL),
-(5, 'sombra mate ', 3, 15, 45,NULL),
-(6, 'aceite de aromaterapia', 2, 10, 19,NULL),
-(7, 'setfacial', 5, 15, 73,NULL),
-(8, 'cera depilatoria', 3, 5, 13,NULL),
-(9, 'spray para cabello', 10, 20, 196,NULL),
-(10, 'gel fijador de cabello', 5, 20, 100,NULL),
-(11, 'gel efecto humedo', 5, 20, 100,NULL),
-(12, 'mousse ', 5, 20, 100,NULL),
-(13, 'mascarilla facial', 5, 1, 5,NULL);
+INSERT INTO `insumo` (`idInsumo`, `nombre`, `cantidad`, `unidad_cantidad_uso`, `disponibilidad`, `proveedor_id`) VALUES
+(1, 'Shampoo Head and Shouders', 3, 10, 30, 3),
+(2, 'Acondicionador Nieva', 4, 5, 20, 1),
+(3, 'Tintura Inoa Supreme Loreal', 3, 30, 90, 2),
+(4, 'rubor smart shade', 10, 10, 100, 1),
+(5, 'sombra mate ', 3, 15, 45, 2),
+(6, 'aceite de aromaterapia', 2, 10, 19, 1),
+(7, 'setfacial', 5, 15, 73, 1),
+(8, 'cera depilatoria', 3, 5, 13, 2),
+(9, 'spray para cabello', 10, 20, 196, 3),
+(10, 'gel fijador de cabello', 5, 20, 100, 3),
+(11, 'gel efecto humedo', 5, 20, 100, 2),
+(12, 'mousse ', 5, 20, 100, 2),
+(13, 'mascarilla facial', 5, 1, 5, 3);
 
 -- --------------------------------------------------------
 
@@ -330,7 +330,7 @@ CREATE TABLE `liquidacion` (
   `FechaHasta` date NOT NULL,
   `SalarioNeto` float NOT NULL,
   `PeriodoDeLiquidacion` varchar(25) NOT NULL,
-  `Estado` int(11) NOT NULL DEFAULT 0
+  `Estado` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -414,7 +414,7 @@ CREATE TABLE `usuario` (
   `menuServicio` bit(1) DEFAULT NULL,
   `menuCompra` bit(1) DEFAULT NULL,
   `menuVenta` bit(1) DEFAULT NULL,
-  `menuInsumo` int(1) NOT NULL DEFAULT 0,
+  `menuInsumo` int(1) NOT NULL DEFAULT '0',
   `dniEmpleado` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -613,7 +613,7 @@ ALTER TABLE `grupofamiliar`
 -- AUTO_INCREMENT de la tabla `insumo`
 --
 ALTER TABLE `insumo`
-  MODIFY `idInsumo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `idInsumo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `liquidacion`
@@ -687,6 +687,7 @@ ALTER TABLE `empleados`
 --
 ALTER TABLE `grupofamiliar`
   ADD CONSTRAINT `grupofamiliar_ibfk_1` FOREIGN KEY (`dniEmpleado`) REFERENCES `empleados` (`dniEmpleado`);
+
 --
 -- Filtros para la tabla `insumo`
 --

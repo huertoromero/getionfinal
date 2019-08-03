@@ -22,6 +22,7 @@ import finalgestion.cambiarContraseña;
 import Empleados.listadoGrupoFamiliar;
 import Empleados.historialEmpleados;
 import Compras.reporteCompras;
+import Proveedores.buscarProveedor;
 import Liquidacion.reporteLiquidacion;
 import Ventas.reporteVentas;
 import finalgestion.ventanaPrincipal;
@@ -314,7 +315,7 @@ public class Operaciones {
             con.conectarBaseDeDatos();
             PreparedStatement pstm = con.getConnection().prepareStatement("SELECT Puesto,SalarioBasico FROM categoria");
             ResultSet res = pstm.executeQuery();
-            
+
             while (res.next()) {
                 modeloCombo.addElement(res.getObject("Puesto"));
             }
@@ -330,9 +331,7 @@ public class Operaciones {
             }
             if (numero == 4) {
                 liquidarVarios.comboCategoria.setModel(modeloCombo);
-            }
-
-            else {
+            } else {
             }
 
             con.desconectarBaseDeDatos();
@@ -501,8 +500,7 @@ public class Operaciones {
         con.conectarBaseDeDatos();
         Object[] registro = new String[6];
         try {
-            PreparedStatement pstm = con.getConnection().prepareStatement
-    ("SELECT cli.dniCliente,cli.Apellido,cli.Nombre,cli.Telefono,cli.Email,cli.direccion FROM clientes cli WHERE  cli.estado = 1");
+            PreparedStatement pstm = con.getConnection().prepareStatement("SELECT cli.dniCliente,cli.Apellido,cli.Nombre,cli.Telefono,cli.Email,cli.direccion FROM clientes cli WHERE  cli.estado = 1");
             ResultSet res = pstm.executeQuery();
             while (res.next()) {
                 registro[0] = res.getObject("cli.dniCliente").toString();
@@ -799,8 +797,7 @@ public class Operaciones {
                     pstm2.execute();
                     pstm2.close();
                     JOptionPane.showMessageDialog(null, "El Proveedor a sido dado de Alta", "Alta", JOptionPane.INFORMATION_MESSAGE);
-                    
-                    
+
                     nuevoProveedor.nuevo();
                     res1.close();
                 } else {
@@ -818,7 +815,7 @@ public class Operaciones {
                 pstm3.setString(7, provincia);
                 pstm3.execute();
                 pstm3.close();
-                Object[] fila = { rs, tel, mail, fec, dir, prov };
+                Object[] fila = {rs, tel, mail, fec, dir, prov};
                 listadoDeProveedores.m.addRow(fila);
 //   PreparedStatement pstm4 = con.getConnection().prepareStatement("Select max(idProveedor) FROM proveedor WHERE RazonSocial LIKE '" + razonSocial + "'");
 //   ResultSet res2 = pstm4.executeQuery();
@@ -959,7 +956,7 @@ public class Operaciones {
     public void cargarProveedores(int tipo) {
         try {
             con.conectarBaseDeDatos();
-            PreparedStatement pstm = con.getConnection().prepareStatement("SELECT RazonSocial  FROM proveedor WHERE Estado =1");
+            PreparedStatement pstm = con.getConnection().prepareStatement("SELECT idProveedor, RazonSocial  FROM proveedor WHERE Estado =1");
             ResultSet res = pstm.executeQuery();
             while (res.next()) {
                 modeloCombo.addElement(res.getObject("RazonSocial"));
@@ -971,10 +968,23 @@ public class Operaciones {
             if (tipo == 2) {
 //  actualizarProducto.comboProveedor.setModel(modeloCombo); // hasta que vea la parte de proveedores
             }
-   /*         if (tipo == 3) {
-                reporteCompras.comboProveedor.setModel(modeloCombo);
+            /*         if (tipo == 3) {
+             reporteCompras.comboProveedor.setModel(modeloCombo);
+             }
+             */
+            if (tipo == 4) {
+                res = pstm.executeQuery();
+                ResultSetMetaData rsmd = res.getMetaData();
+                int cantidadColumnas = rsmd.getColumnCount();
+                while (res.next()) {
+                    Object[] fila = new Object[cantidadColumnas];
+                    for (int i = 0; i < cantidadColumnas; i++) {
+                        fila[i] = res.getObject(i + 1);
+                    }
+                    buscarProveedor.tabla.addRow(fila);
+                }
             }
-  */          con.desconectarBaseDeDatos();
+            con.desconectarBaseDeDatos();
         } catch (SQLException ex) {
             System.out.print(ex);
         }
@@ -1350,7 +1360,7 @@ public class Operaciones {
             System.out.print(ex);
         }
     }
-    
+
     public void cargarTablaEmpleados(int categoria) {
         try {
             DefaultTableModel model = (DefaultTableModel) liquidarVarios.tablaEmpleados.getModel();
@@ -1397,7 +1407,7 @@ public class Operaciones {
             System.out.print(ex);
         }
     }
-    
+
     public void cargarEmpleadosLiquidacion(String periodo, int dni) {
         try {
 
@@ -1464,8 +1474,8 @@ public class Operaciones {
             JOptionPane.showMessageDialog(null, ex, "ERROR", JOptionPane.ERROR_MESSAGE);
             System.out.print(ex);
         }
-        if(porDefecto==false){
-        jubilacion=0;
+        if (porDefecto == false) {
+            jubilacion = 0;
         }
         return jubilacion;
     }
@@ -1485,11 +1495,12 @@ public class Operaciones {
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-                if(porDefecto==false){
-        ley=0;
+        if (porDefecto == false) {
+            ley = 0;
         }
         return ley;
     }
+
     public float obtenerAguinaldoJunio() {
         con.conectarBaseDeDatos();
         float aj = 0;
@@ -1505,12 +1516,13 @@ public class Operaciones {
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-                if(porDefecto==false){
-        aj=0;
+        if (porDefecto == false) {
+            aj = 0;
         }
         return aj;
     }
-public float obtenerAguinaldoDiciembre() {
+
+    public float obtenerAguinaldoDiciembre() {
         con.conectarBaseDeDatos();
         float ad = 0;
         boolean porDefecto = false;
@@ -1525,15 +1537,16 @@ public float obtenerAguinaldoDiciembre() {
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-                if(porDefecto==false){
-        ad=0;
+        if (porDefecto == false) {
+            ad = 0;
         }
         return ad;
     }
+
     public float obtenerObraSocial() {
         con.conectarBaseDeDatos();
         float obraSocial = 0;
-        
+
         boolean porDefecto = false;
         try {
             PreparedStatement pstm = con.getConnection().prepareStatement("SELECT MontoVariable, porDefecto FROM conceptos WHERE Descripcion = 'obra Social'");
@@ -1547,8 +1560,8 @@ public float obtenerAguinaldoDiciembre() {
             JOptionPane.showMessageDialog(null, ex, "ERROR", JOptionPane.ERROR_MESSAGE);
             System.out.print(ex);
         }
-               if(porDefecto==false){
-        obraSocial=0;
+        if (porDefecto == false) {
+            obraSocial = 0;
         }
         return obraSocial;
     }
@@ -1561,7 +1574,7 @@ public float obtenerAguinaldoDiciembre() {
             PreparedStatement pstm = con.getConnection().prepareStatement("SELECT MontoFijo, porDefecto FROM conceptos WHERE Descripcion = 'Aporte Obra Social'");
             ResultSet res = pstm.executeQuery();
             if (res.next() == true) {
-                porDefecto=res.getBoolean("porDefecto");
+                porDefecto = res.getBoolean("porDefecto");
                 aporte = res.getFloat("MontoFijo");
             }
             con.desconectarBaseDeDatos();
@@ -1569,11 +1582,12 @@ public float obtenerAguinaldoDiciembre() {
             JOptionPane.showMessageDialog(null, ex, "ERROR", JOptionPane.ERROR_MESSAGE);
             System.out.print(ex);
         }
-       if(porDefecto==false){
-        aporte=0;
+        if (porDefecto == false) {
+            aporte = 0;
         }
         return aporte;
     }
+
     public float obtenerPresentismo() {
         con.conectarBaseDeDatos();
         float presentismo = 0;
@@ -1582,7 +1596,7 @@ public float obtenerAguinaldoDiciembre() {
             PreparedStatement pstm = con.getConnection().prepareStatement("SELECT MontoFijo, porDefecto FROM conceptos WHERE Descripcion = 'Presentismo'");
             ResultSet res = pstm.executeQuery();
             if (res.next() == true) {
-                porDefecto=res.getBoolean("porDefecto");
+                porDefecto = res.getBoolean("porDefecto");
                 presentismo = res.getFloat("MontoFijo");
                 System.out.println(porDefecto);
                 System.out.println(presentismo);
@@ -1611,8 +1625,8 @@ public float obtenerAguinaldoDiciembre() {
             JOptionPane.showMessageDialog(null, ex, "ERROR", JOptionPane.ERROR_MESSAGE);
             System.out.print(ex);
         }
-          if(porDefecto==false){
-        sindicato=0;
+        if (porDefecto == false) {
+            sindicato = 0;
         }
         return sindicato;
     }
@@ -1856,10 +1870,10 @@ public float obtenerAguinaldoDiciembre() {
         try {
             PreparedStatement pstm = con.getConnection().prepareStatement("SELECT SalarioBasico FROM categoria WHERE idCategoria = '" + i + "'");
             ResultSet res = pstm.executeQuery();
-         /*   if (res.next() == true) {
-                listadosConceptos.txtSalario.setText(String.valueOf(res.getInt("SalarioBasico")));
-            }
-           */ res.close();
+            /*   if (res.next() == true) {
+             listadosConceptos.txtSalario.setText(String.valueOf(res.getInt("SalarioBasico")));
+             }
+             */ res.close();
             con.desconectarBaseDeDatos();
         } catch (Exception ex) {
             System.out.print(ex);
@@ -2357,7 +2371,7 @@ public float obtenerAguinaldoDiciembre() {
 
     public void actualizarConcepto(int idConcepto, String descripcion, String tipo, float montofijo, float montoVariable, boolean porDefecto) {
         try {
-            
+
             con.conectarBaseDeDatos();
             PreparedStatement pstm = con.getConnection().prepareStatement("UPDATE conceptos set descripcion = ?,tipo=?, montoFijo=?, montoVariable= ?, porDefecto= ? WHERE idConcepto =" + idConcepto); // puede haber error, en el ?
             pstm.setString(1, descripcion);
@@ -2379,10 +2393,10 @@ public float obtenerAguinaldoDiciembre() {
     }
 
     public void eliminarConcepto(String descripcion) {
-        
+
         try {
             con.conectarBaseDeDatos();
-            PreparedStatement pstm = con.getConnection().prepareStatement("DELETE FROM conceptos WHERE descripcion = '"+descripcion+"'");
+            PreparedStatement pstm = con.getConnection().prepareStatement("DELETE FROM conceptos WHERE descripcion = '" + descripcion + "'");
 //   pstm.setString(1,nombre);
             pstm.executeUpdate();
             pstm.close();

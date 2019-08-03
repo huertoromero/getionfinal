@@ -1,11 +1,8 @@
 package Insumos;
 
-import Servicios.*;
-import Clientes.*;
-import Clases.Clientes;
-import java.awt.event.KeyEvent;
-import Insumos.Insumos;
+import Proveedores.buscarProveedor;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 public class nuevoInsumo extends javax.swing.JDialog {
  Insumos ins = new Insumos();
@@ -32,6 +29,9 @@ public nuevoInsumo(java.awt.Frame parent, boolean modal) {
         btnAgregar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
+        jLabel20 = new javax.swing.JLabel();
+        txtProveedor = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Nuevo Insumo");
@@ -156,26 +156,46 @@ public nuevoInsumo(java.awt.Frame parent, boolean modal) {
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
+        jLabel20.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(-1,true));
+        jLabel20.setText("Proveedor:");
+
+        txtProveedor.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/buscar.png"))); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(42, 42, 42)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
                     .addComponent(jLabel18)
-                    .addComponent(jLabel19))
+                    .addComponent(jLabel19)
+                    .addComponent(jLabel20))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtcantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNumUsos, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(108, 108, 108))
-            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(txtProveedor)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(txtcantidad, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtNumUsos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,7 +213,13 @@ public nuevoInsumo(java.awt.Frame parent, boolean modal) {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18)
                     .addComponent(txtNumUsos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel20)
+                        .addComponent(txtProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -208,19 +234,20 @@ public nuevoInsumo(java.awt.Frame parent, boolean modal) {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setSize(new java.awt.Dimension(735, 337));
+        setSize(new java.awt.Dimension(735, 356));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
     if(!txtNombre.getText().equals("") && !txtNumUsos.getText().equals(""))       
     {
-
      ins.setNombre(txtNombre.getText().toLowerCase());
      ins.setCantidad(Integer.parseInt(txtcantidad.getText()));
      ins.setCantidadUsos(Integer.parseInt(txtNumUsos.getText()));
-
+     ins.setProveedor(Integer.parseInt(txtProveedor.getText().substring(0, 1)));
      ins.nuevoInsumo();
+     listadoDeInsumos.tabla();
+     nuevo();
     }
     else{
      JOptionPane.showMessageDialog(null,"Datos Faltantes","Error",JOptionPane.ERROR_MESSAGE);
@@ -251,10 +278,17 @@ public nuevoInsumo(java.awt.Frame parent, boolean modal) {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtcantidadKeyTyped
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        buscarProveedor bp = new buscarProveedor(null,true,txtProveedor);
+        bp.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
      public static void nuevo() {
      txtNombre.setText("");
      txtcantidad.setText("");
      txtNumUsos.setText("");
+     txtProveedor.setText("");
     }
 
     public static void main(String args[]) {
@@ -272,12 +306,19 @@ public nuevoInsumo(java.awt.Frame parent, boolean modal) {
         });
     }
 
+    public static JTextField getTxtProveedor() {
+        return txtProveedor;
+    }
+
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnSalir;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
@@ -285,6 +326,7 @@ public nuevoInsumo(java.awt.Frame parent, boolean modal) {
     private javax.swing.JPanel jPanel6;
     private static javax.swing.JTextField txtNombre;
     private static javax.swing.JTextField txtNumUsos;
+    private static javax.swing.JTextField txtProveedor;
     private static javax.swing.JTextField txtcantidad;
     // End of variables declaration//GEN-END:variables
 

@@ -12,6 +12,8 @@ public class Insumos {
     private String nombre;
     private int cantidad;
     private int cantidadUsos;
+    private int proveedor;
+    
     
     private InsumosOperaciones op = new InsumosOperaciones();
     private ComprasOperaciones opC = new ComprasOperaciones();
@@ -56,6 +58,15 @@ public class Insumos {
         this.cantidadUsos = cantidadUsos;
     }
 
+    public int getProveedor() {
+        return proveedor;
+    }
+
+    public void setProveedor(int proveedor) {
+        this.proveedor = proveedor;
+    }
+    
+
     public InsumosOperaciones getOp() {
         return op;
     }
@@ -73,10 +84,10 @@ public class Insumos {
     }
         
         public void nuevoInsumo() {
-        op.nuevoInsumo(nombre, cantidad, cantidadUsos);
+        op.nuevoInsumo(nombre, cantidad, cantidadUsos,proveedor);
     }
          public void actualizarInsumo() {
-        op.actualizarInsumo(codigo, nombre, cantidad, cantidadUsos);
+        op.actualizarInsumo(codigo, nombre, cantidad, cantidadUsos,proveedor);
     }
          
         public void eliminarInsumo() {
