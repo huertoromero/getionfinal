@@ -4,14 +4,18 @@ import Clientes.*;
 import Clases.Clientes;
 import Insumos.buscarInsumo;
 import java.awt.event.KeyEvent;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 public class nuevoServicio extends javax.swing.JDialog {
  Servicios ser = new Servicios();
+ static DefaultListModel modelInsumos = new DefaultListModel();
 
 public nuevoServicio(java.awt.Frame parent, boolean modal) {
  super(parent, modal);
  initComponents();
+ getListInsumos().setModel(getModelInsumos());
 }
 
     @SuppressWarnings("unchecked")
@@ -26,12 +30,14 @@ public nuevoServicio(java.awt.Frame parent, boolean modal) {
         jPanel5 = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        txtInsumo = new javax.swing.JTextField();
         btnBuscarInsumo = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         btnAgregar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listInsumos = new javax.swing.JList();
+        btnEliminarInsumo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Nuevo Servicio");
@@ -47,7 +53,7 @@ public nuevoServicio(java.awt.Frame parent, boolean modal) {
 
         jLabel6.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(-1,true));
-        jLabel6.setText("Insumo:");
+        jLabel6.setText("Insumos:");
 
         txtNombre.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -80,7 +86,7 @@ public nuevoServicio(java.awt.Frame parent, boolean modal) {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel23)
-                .addContainerGap(542, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -93,13 +99,6 @@ public nuevoServicio(java.awt.Frame parent, boolean modal) {
         jLabel7.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(-1,true));
         jLabel7.setText("Nombre:");
-
-        txtInsumo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        txtInsumo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtInsumoKeyTyped(evt);
-            }
-        });
 
         btnBuscarInsumo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnBuscarInsumo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/buscar.png"))); // NOI18N
@@ -151,7 +150,7 @@ public nuevoServicio(java.awt.Frame parent, boolean modal) {
                 .addComponent(btnCancelar)
                 .addGap(36, 36, 36)
                 .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(193, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -163,6 +162,19 @@ public nuevoServicio(java.awt.Frame parent, boolean modal) {
                     .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jScrollPane1.setViewportView(listInsumos);
+
+        btnEliminarInsumo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/eliminar.JPG"))); // NOI18N
+        btnEliminarInsumo.setFocusable(false);
+        btnEliminarInsumo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnEliminarInsumo.setMaximumSize(new java.awt.Dimension(41, 55));
+        btnEliminarInsumo.setMinimumSize(new java.awt.Dimension(41, 55));
+        btnEliminarInsumo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarInsumoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -177,19 +189,24 @@ public nuevoServicio(java.awt.Frame parent, boolean modal) {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtInsumo, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(10, 10, 10)
-                                .addComponent(btnBuscarInsumo, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnEliminarInsumo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnBuscarInsumo, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(107, 107, 107))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel18)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel7)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel18)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(9, 9, 9)))))
                 .addGap(0, 0, 0))
         );
         jPanel1Layout.setVerticalGroup(
@@ -205,11 +222,15 @@ public nuevoServicio(java.awt.Frame parent, boolean modal) {
                     .addComponent(jLabel18)
                     .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(txtInsumo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscarInsumo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(btnBuscarInsumo))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnEliminarInsumo, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -262,10 +283,6 @@ public nuevoServicio(java.awt.Frame parent, boolean modal) {
     
     }//GEN-LAST:event_txtPrecioKeyTyped
 
-    private void txtInsumoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtInsumoKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtInsumoKeyTyped
-
     private void btnBuscarInsumoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarInsumoActionPerformed
 //        txtPrecio.setText("");
         buscarInsumo bs = new buscarInsumo(null,true);
@@ -274,10 +291,16 @@ public nuevoServicio(java.awt.Frame parent, boolean modal) {
         // bp.setVisible(true);
     }//GEN-LAST:event_btnBuscarInsumoActionPerformed
 
+    private void btnEliminarInsumoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarInsumoActionPerformed
+        // TODO add your handling code here:
+        modelInsumos.remove(listInsumos.getSelectedIndex());
+    }//GEN-LAST:event_btnEliminarInsumoActionPerformed
+
      public static void nuevo() {
      txtNombre.setText("");
      txtPrecio.setText("");
-     txtInsumo.setText("");
+     modelInsumos = new DefaultListModel();
+     listInsumos.setModel(modelInsumos);
     }
 
     public static void main(String args[]) {
@@ -295,10 +318,19 @@ public nuevoServicio(java.awt.Frame parent, boolean modal) {
         });
     }
 
+    public static JList getListInsumos() {
+        return listInsumos;
+    }
+
+    public static DefaultListModel getModelInsumos() {
+        return modelInsumos;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     public static javax.swing.JButton btnBuscarInsumo;
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnEliminarInsumo;
     private javax.swing.JButton btnSalir;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel23;
@@ -307,7 +339,8 @@ public nuevoServicio(java.awt.Frame parent, boolean modal) {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    public static javax.swing.JTextField txtInsumo;
+    private javax.swing.JScrollPane jScrollPane1;
+    private static javax.swing.JList listInsumos;
     private static javax.swing.JTextField txtNombre;
     private static javax.swing.JTextField txtPrecio;
     // End of variables declaration//GEN-END:variables

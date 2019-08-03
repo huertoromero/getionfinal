@@ -3,6 +3,7 @@
 package Insumos;
 
 import Servicios.*;
+import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
 
 public class buscarInsumo extends javax.swing.JDialog {
@@ -60,6 +61,11 @@ public class buscarInsumo extends javax.swing.JDialog {
                 aceptarButtonMouseClicked(evt);
             }
         });
+        aceptarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aceptarButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -105,9 +111,14 @@ public class buscarInsumo extends javax.swing.JDialog {
 
     private void aceptarButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_aceptarButtonMouseClicked
         int fila = tablaInsumos.getSelectedRow();
-        nuevoServicio.txtInsumo.setText(tablaInsumos.getValueAt(fila,1).toString());
+        nuevoServicio.getModelInsumos().addElement(tablaInsumos.getValueAt(fila,1).toString());
+        nuevoServicio.getListInsumos().setModel(nuevoServicio.getModelInsumos());
         dispose();
     }//GEN-LAST:event_aceptarButtonMouseClicked
+
+    private void aceptarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_aceptarButtonActionPerformed
 
 //private void comprobarStock(String descripcion,int stock) {
 // int encontrado=0;

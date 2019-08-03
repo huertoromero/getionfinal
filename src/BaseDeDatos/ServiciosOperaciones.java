@@ -3,7 +3,6 @@ package BaseDeDatos;
 import Servicios.buscarServicio;
 import Servicios.nuevoServicio;
 import Servicios.listadoDeServicios;
-import static Servicios.nuevoServicio.txtInsumo;
 import Ventas.nuevaVenta;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -82,8 +81,11 @@ public class ServiciosOperaciones {
             JOptionPane.showMessageDialog(null, "Registro Completo", "FELICIDADES", JOptionPane.INFORMATION_MESSAGE);
            
             con.desconectarBaseDeDatos();
-            if (!nuevoServicio.txtInsumo.getText().equals("")){
-              nuevoServicioInsumo(nombre, nuevoServicio.txtInsumo.getText());   
+            if (nuevoServicio.getListInsumos().getModel().getSize() > 0){
+                for(int i=0; i<nuevoServicio.getListInsumos().getModel().getSize(); i++ ){
+                    String safsa = nuevoServicio.getListInsumos().getModel().getElementAt(i).toString();
+                    nuevoServicioInsumo(nombre, nuevoServicio.getListInsumos().getModel().getElementAt(i).toString());
+                }
             }
             nuevoServicio.nuevo();
             }
