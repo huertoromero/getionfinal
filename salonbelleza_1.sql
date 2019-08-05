@@ -58,15 +58,15 @@ CREATE TABLE `clientes` (
   `FechaDeAlta` date DEFAULT NULL,
   `FechaDeBaja` date DEFAULT NULL,
   `Estado` int(1) NOT NULL,
-  `Direccion` varchar(100) DEFAULT NULL
+  `idDomicilio` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `clientes`
 --
 
-INSERT INTO `clientes` (`dniCliente`, `Apellido`, `Nombre`, `Telefono`, `Email`, `FechaDeAlta`, `FechaDeBaja`, `Estado`, `Direccion`) VALUES
-(11111111, 'Apaza', 'Silvana', 3814637256, 'silva_d@gmail.com', '2015-09-01', '0000-00-00', 1, 'barrio belgrano mc lote 12');
+INSERT INTO `clientes` (`dniCliente`, `Apellido`, `Nombre`, `Telefono`, `Email`, `FechaDeAlta`, `FechaDeBaja`, `Estado`) VALUES
+(11111111, 'Apaza', 'Silvana', 3814637256, 'silva_d@gmail.com', '2015-09-01', '0000-00-00', 1);
 
 -- --------------------------------------------------------
 
@@ -217,7 +217,8 @@ CREATE TABLE `empleados` (
   `direccion` varchar(45) DEFAULT NULL,
   `estado` int(11) DEFAULT NULL,
   `fechaBaja` date DEFAULT NULL,
-  `idCategoria` int(11) NOT NULL
+  `idCategoria` int(11) NOT NULL,
+  `idDomicilio` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='				';
 
 --
@@ -356,7 +357,8 @@ CREATE TABLE `proveedor` (
   `fechadeBaja` date DEFAULT NULL,
   `estado` int(1) DEFAULT NULL,
   `direccion` varchar(50) DEFAULT NULL,
-  `provincia` varchar(35) NOT NULL
+  `provincia` varchar(35) NOT NULL,
+  `idDomicilio` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -453,6 +455,43 @@ CREATE TABLE `ventas` (
 INSERT INTO `ventas` (`idVenta`, `Fecha`, `Hora`, `Total`, `Monto`, `Vuelto`, `dniEmpleado`, `dniCliente`) VALUES
 (13, '2019-07-08', '17:36:00', 100, 120, 20, 38742005, 11111111);
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `provincia`
+--
+
+CREATE TABLE `provincia` (
+  `idProvincia` int(11) NOT NULL,
+  `nombre` VARCHAR(45) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `localidad`
+--
+
+CREATE TABLE `localidad` (
+  `idLocalidad` int(11) NOT NULL,
+  `nombre` VARCHAR(45) DEFAULT NULL,
+  `codigoPostal` int(11) DEFAULT NULL,
+  `idProvincia` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `domicilio`
+--
+
+CREATE TABLE `domicilio` (
+  `idDomicilio` int(11) NOT NULL,
+  `calle` VARCHAR(45) DEFAULT NULL,
+  `numero` int(11) DEFAULT NULL,
+  `descripcion` VARCHAR(45) DEFAULT NULL,
+  `idLocalidad` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 --
 -- Índices para tablas volcadas
 --
@@ -512,7 +551,8 @@ ALTER TABLE `detalle_venta`
 ALTER TABLE `empleados`
   ADD PRIMARY KEY (`dniEmpleado`),
   ADD KEY `idCategoria` (`idCategoria`),
-  ADD KEY `idCategoria_2` (`idCategoria`);
+  ADD KEY `idCategoria_2` (`idCategoria`),
+  ADD KEY `idDomicilio_1` (`idDomicilio`);
 
 --
 -- Indices de la tabla `grupofamiliar`
@@ -568,6 +608,25 @@ ALTER TABLE `ventas`
   ADD PRIMARY KEY (`idVenta`),
   ADD KEY `empleado_id_idx` (`dniEmpleado`),
   ADD KEY `cliente_id_idx` (`dniCliente`);
+
+--
+-- Indices de la tabla `provincia`
+--
+ALTER TABLE `provincia`
+  ADD PRIMARY KEY (`idProvincia`);
+
+--
+-- Indices de la tabla `ventas`
+--
+ALTER TABLE `localidad`
+  ADD PRIMARY KEY (`idLocalidad`),
+  ADD KEY `idProvincia_idx` (`idProvincia`);
+--
+-- Indices de la tabla `domicilio`
+--
+ALTER TABLE `domicilio`
+  ADD PRIMARY KEY (`idDomicilio`),
+  ADD KEY `idLocalidad_idx` (`idLocalidad`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -646,6 +705,24 @@ ALTER TABLE `ventas`
   MODIFY `idVenta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
+-- AUTO_INCREMENT de la tabla `provincia`
+--
+ALTER TABLE `provincia`
+  MODIFY `idProvincia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+
+--
+-- AUTO_INCREMENT de la tabla `localidad`
+--
+ALTER TABLE `localidad`
+  MODIFY `idLocalidad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+
+--
+-- AUTO_INCREMENT de la tabla `domicilio`
+--
+ALTER TABLE `domicilio`
+  MODIFY `idDomicilio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+
+--
 -- Restricciones para tablas volcadas
 --
 
@@ -680,7 +757,8 @@ ALTER TABLE `detalle_venta`
 -- Filtros para la tabla `empleados`
 --
 ALTER TABLE `empleados`
-  ADD CONSTRAINT `empleados_ibfk_1` FOREIGN KEY (`idCategoria`) REFERENCES `categoria` (`idCategoria`);
+  ADD CONSTRAINT `empleados_ibfk_1` FOREIGN KEY (`idCategoria`) REFERENCES `categoria` (`idCategoria`),
+  ADD CONSTRAINT `fk_empleados_domicilio` FOREIGN KEY (`idDomicilio`) REFERENCES `domicilio` (`idDomicilio`);
 
 --
 -- Filtros para la tabla `grupofamiliar`
@@ -719,6 +797,30 @@ ALTER TABLE `usuario`
 ALTER TABLE `ventas`
   ADD CONSTRAINT `cliente_id` FOREIGN KEY (`dniCliente`) REFERENCES `clientes` (`dniCliente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `empleado_id2` FOREIGN KEY (`dniEmpleado`) REFERENCES `empleados` (`dniEmpleado`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+--
+-- Filtros para la tabla `provincia`
+--
+ALTER TABLE `localidad`
+  ADD CONSTRAINT `fk_Localidad_Provincia` FOREIGN KEY (`idProvincia`) REFERENCES `provincia` (`idProvincia`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+--
+-- Filtros para la tabla `domicilio`
+--
+ALTER TABLE `domicilio`
+  ADD CONSTRAINT `fk_Domicilio_Localidad` FOREIGN KEY (`idLocalidad`) REFERENCES `localidad` (`idLocalidad`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  
+--
+-- Filtros para la tabla `domicilio`
+--
+ALTER TABLE `proveedor`
+  ADD CONSTRAINT `fk_Proveedor_Domicilio` FOREIGN KEY (`idDomicilio`) REFERENCES `domicilio` (`idDomicilio`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  
+--
+-- Filtros para la tabla `clientes`
+--
+ALTER TABLE `clientes`
+  ADD CONSTRAINT `fk_Clientes_Domicilio` FOREIGN KEY (`idDomicilio`) REFERENCES `domicilio` (`idDomicilio`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  
+  
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
