@@ -4,17 +4,24 @@ import Clases.Proveedor;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import Proveedores.listadoDeProveedores;
+import direccion.Domicilio;
+import direccion.Localidad;
+import direccion.Provincia;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class nuevoProveedor extends javax.swing.JDialog {
- Proveedor pro = new Proveedor();
+
+    Proveedor pro = new Proveedor();
+    private static Domicilio dom = new Domicilio();
 
     public nuevoProveedor(java.awt.Frame parent, boolean modal) {
-     super(parent, modal);
-     initComponents();
-     lblFecha.setText(pro.fr.fecha());
-     lblFechaBd.setText(pro.fr.fechaBD());
-     lblFechaBd.setVisible(false);
-    // pro.dir.loc.cargarLocalidades(3);
+        super(parent, modal);
+        initComponents();
+        lblFecha.setText(pro.fr.fecha());
+        lblFechaBd.setText(pro.fr.fechaBD());
+        lblFechaBd.setVisible(false);
+        nuevo();
     }
 
     @SuppressWarnings("unchecked")
@@ -41,10 +48,12 @@ public class nuevoProveedor extends javax.swing.JDialog {
         jPanel4 = new javax.swing.JPanel();
         txtCalle = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
-        comboProvincia2 = new javax.swing.JComboBox();
+        comboProvincia3 = new javax.swing.JComboBox();
         jLabel26 = new javax.swing.JLabel();
-        comboLocalidad2 = new javax.swing.JComboBox();
+        comboLocalidad3 = new javax.swing.JComboBox();
         jLabel27 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        txtNumero = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         txtRazonSocial = new javax.swing.JTextField();
@@ -112,7 +121,7 @@ public class nuevoProveedor extends javax.swing.JDialog {
                 .addComponent(jLabel23)
                 .addGap(39, 39, 39)
                 .addComponent(lblFechaBd)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 187, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel24)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblFecha)
@@ -171,7 +180,7 @@ public class nuevoProveedor extends javax.swing.JDialog {
                 .addComponent(btnAgregar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCancelar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 448, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSalir)
                 .addContainerGap())
         );
@@ -200,19 +209,23 @@ public class nuevoProveedor extends javax.swing.JDialog {
         jLabel21.setForeground(new java.awt.Color(-1,true));
         jLabel21.setText("Calle:");
 
-        comboProvincia2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        comboProvincia2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Provincia", "Buenos Aires", "Jujuy", "Salta", "Santa Fe", "Tucumán", " ", " " }));
+        comboProvincia3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jLabel26.setFont(new java.awt.Font("Segoe UI Light", 0, 16)); // NOI18N
         jLabel26.setForeground(new java.awt.Color(-1,true));
         jLabel26.setText("Provincia");
 
-        comboLocalidad2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        comboLocalidad2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Localidad", "Aguilares", "Concepción", "San Miguel de Tucumán", "Yerba Buena" }));
+        comboLocalidad3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jLabel27.setFont(new java.awt.Font("Segoe UI Light", 0, 16)); // NOI18N
         jLabel27.setForeground(new java.awt.Color(-1,true));
         jLabel27.setText("Localidad");
+
+        jLabel22.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
+        jLabel22.setForeground(new java.awt.Color(-1,true));
+        jLabel22.setText("Numero:");
+
+        txtNumero.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -229,11 +242,13 @@ public class nuevoProveedor extends javax.swing.JDialog {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel26)
-                            .addComponent(jLabel27))
-                        .addGap(27, 27, 27)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(comboLocalidad2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboProvincia2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel27)
+                            .addComponent(jLabel22))
+                        .addGap(23, 23, 23)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboProvincia3, 0, 223, Short.MAX_VALUE)
+                            .addComponent(comboLocalidad3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel4Layout.setVerticalGroup(
@@ -243,15 +258,18 @@ public class nuevoProveedor extends javax.swing.JDialog {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel21))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel22)
+                    .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel26)
-                    .addComponent(comboProvincia2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(comboProvincia3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel27)
-                    .addComponent(comboLocalidad2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(46, Short.MAX_VALUE))
+                    .addComponent(comboLocalidad3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         jPanel5.setBackground(new java.awt.Color(0, 102, 102));
@@ -292,10 +310,10 @@ public class nuevoProveedor extends javax.swing.JDialog {
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtRazonSocial, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
-                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtEmail))
-                .addContainerGap(243, Short.MAX_VALUE))
+                    .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
+                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtRazonSocial))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -340,7 +358,7 @@ public class nuevoProveedor extends javax.swing.JDialog {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -363,34 +381,28 @@ public class nuevoProveedor extends javax.swing.JDialog {
 }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-    nuevo();
+        nuevo();
 }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
- if(!txtRazonSocial.getText().equals("") && !txtTelefono.getText().equals("") && !txtCalle.getText().equals("")){
-  pro.setRazonSocial(txtRazonSocial.getText().toLowerCase());
-  pro.setTelefono(Long.parseLong(txtTelefono.getText()));
-//  pro.setCelular(Long.parseLong(txtCelular.getText()));
-//  pro.setFax(Long.parseLong(txtFax.getText()));
-  pro.setEmail(txtEmail.getText().toLowerCase());
-  pro.setDireccion(txtCalle.getText().toLowerCase());
-//  pro.dir.setNumero(Integer.parseInt(txtNumero.getText()));
-//  pro.dir.setPiso(Integer.parseInt(comboPiso.getSelectedItem().toString()));
-//  pro.dir.setDepartamento(comboDepartamento.getSelectedItem().toString());
-  pro.setProvincia(comboProvincia.getSelectedItem().toString().toLowerCase());
-  pro.setFechaAlta(lblFechaBd.getText());
-  pro.setEstado(1);
-  pro.nuevoProveedor();
-  
- }
- else{
-  JOptionPane.showMessageDialog(null,"Datos Faltantes","Error",JOptionPane.ERROR_MESSAGE);
- }
+        if (!txtRazonSocial.getText().equals("") && !txtTelefono.getText().equals("") && !txtCalle.getText().equals("")) {
+            pro.setRazonSocial(txtRazonSocial.getText().toLowerCase());
+            pro.setTelefono(Long.parseLong(txtTelefono.getText()));
+            pro.setEmail(txtEmail.getText().toLowerCase());
+            pro.setDomicilio(new Domicilio(txtCalle.getText(), Integer.parseInt(txtNumero.getText()), (Localidad)comboLocalidad3.getSelectedItem()));
+            pro.setFechaAlta(lblFechaBd.getText());
+            pro.setEstado(1);
+            pro.nuevoProveedor();
+            listadoDeProveedores.tabla();
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Datos Faltantes", "Error", JOptionPane.ERROR_MESSAGE);
+        }
 }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
-     int k=(int)evt.getKeyChar();
-     Numeros(k,evt);
+        int k = (int) evt.getKeyChar();
+        Numeros(k, evt);
     }//GEN-LAST:event_txtTelefonoKeyTyped
 
     private void txtCalle1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCalle1KeyTyped
@@ -401,27 +413,36 @@ public class nuevoProveedor extends javax.swing.JDialog {
 
     }//GEN-LAST:event_txtCalleKeyTyped
 
- public static void nuevo() {
-   txtRazonSocial.setText("");
-   txtRazonSocial.requestFocus();
-   txtTelefono.setText("");
-   txtEmail.setText("");
-   //txtCalle.setText("");
-  // txtCalle.setText("");
-  // comboProvincia.setSelectedIndex(0);
- }
+    public static void nuevo() {
+        txtRazonSocial.setText("");
+        txtRazonSocial.requestFocus();
+        txtTelefono.setText("");
+        txtEmail.setText("");
+        txtCalle.setText("");
+        txtNumero.setText("");
+        dom.obtenerProvincias(comboProvincia3);
+        Provincia prov = (Provincia) comboProvincia3.getSelectedItem();
+        dom.obtenerLocalidad(prov, comboLocalidad3);
+        comboProvincia3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Provincia prov = (Provincia) comboProvincia3.getSelectedItem();
+                dom.obtenerLocalidad(prov, comboLocalidad3);
+            }
+        });
+    }
 
- private void Numeros(int k, KeyEvent evt) {
-  if (k >= 32 && k <= 47){
-   evt.setKeyChar((char)KeyEvent.VK_CLEAR);
-  }
-  if (k >= 97 && k <= 126 || k>=58 && k<=90){
-   evt.setKeyChar((char)KeyEvent.VK_CLEAR);
-  }
-  if(k==241 || k==209){
-   evt.setKeyChar((char)KeyEvent.VK_CLEAR);
-  }
- }
+    private void Numeros(int k, KeyEvent evt) {
+        if (k >= 32 && k <= 47) {
+            evt.setKeyChar((char) KeyEvent.VK_CLEAR);
+        }
+        if (k >= 97 && k <= 126 || k >= 58 && k <= 90) {
+            evt.setKeyChar((char) KeyEvent.VK_CLEAR);
+        }
+        if (k == 241 || k == 209) {
+            evt.setKeyChar((char) KeyEvent.VK_CLEAR);
+        }
+    }
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -442,13 +463,14 @@ public class nuevoProveedor extends javax.swing.JDialog {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnSalir;
     private javax.swing.JComboBox comboLocalidad;
-    private javax.swing.JComboBox comboLocalidad2;
+    private static javax.swing.JComboBox comboLocalidad3;
     private javax.swing.JComboBox comboProvincia;
-    private javax.swing.JComboBox comboProvincia2;
+    private static javax.swing.JComboBox comboProvincia3;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel26;
@@ -464,9 +486,10 @@ public class nuevoProveedor extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JLabel lblFecha;
     private javax.swing.JLabel lblFechaBd;
-    private javax.swing.JTextField txtCalle;
+    private static javax.swing.JTextField txtCalle;
     private static javax.swing.JTextField txtCalle1;
     private static javax.swing.JTextField txtEmail;
+    private static javax.swing.JTextField txtNumero;
     private static javax.swing.JTextField txtRazonSocial;
     private static javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables

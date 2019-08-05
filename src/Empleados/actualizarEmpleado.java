@@ -390,7 +390,7 @@ public class actualizarEmpleado extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         setSize(new java.awt.Dimension(952, 652));
@@ -411,10 +411,6 @@ public class actualizarEmpleado extends javax.swing.JDialog {
      comboCategoria.setToolTipText(String.valueOf(listadoEmpleados.listadoEmpleados.getValueAt(fila,6).toString()));
      
     }//GEN-LAST:event_formWindowOpened
-
-    private void txtCalleKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCalleKeyTyped
-        
-}//GEN-LAST:event_txtCalleKeyTyped
 
     private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
        int k=(int)evt.getKeyChar();
@@ -580,6 +576,10 @@ public class actualizarEmpleado extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_radVentasActionPerformed
 
+    private void txtCalleKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCalleKeyTyped
+
+    }//GEN-LAST:event_txtCalleKeyTyped
+
  private void Numeros(int k, KeyEvent evt) {
 
  }
@@ -626,7 +626,7 @@ public class actualizarEmpleado extends javax.swing.JDialog {
     private javax.swing.JRadioButton radServicios;
     private javax.swing.JRadioButton radVentas;
     private javax.swing.JTextField txtApellido;
-    private static javax.swing.JTextField txtCalle;
+    private javax.swing.JTextField txtCalle;
     private javax.swing.JTextField txtCuil;
     private javax.swing.JTextField txtDni;
     private javax.swing.JTextField txtMail;

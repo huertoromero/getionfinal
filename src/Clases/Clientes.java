@@ -1,123 +1,119 @@
 package Clases;
 
 import BaseDeDatos.Operaciones;
+import direccion.Domicilio;
 
 public class Clientes {
 
- 
- public Operaciones op = new Operaciones();
- public FechayHora fh = new FechayHora();
+    public Operaciones op = new Operaciones();
+    public FechayHora fh = new FechayHora();
 
- private int dni;
- private String nombre;
- private String apellido;
- private long telefono;
- private String mail;
- private String fechadeAlta;
- private String fechadeBaja;
- private int estado;
- private String direccion;
+    private int dni;
+    private String nombre;
+    private String apellido;
+    private long telefono;
+    private String mail;
+    private String fechadeAlta;
+    private String fechadeBaja;
+    private int estado;
+    private Domicilio domicilio;
 
-    public String getDireccion() {
-        return direccion;
+    public Domicilio getDomicilio() {
+        return domicilio;
     }
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
+    public void setDomicilio(Domicilio domicilio) {
+        this.domicilio = domicilio;
+    }
+    
+    public String getFechadeBaja() {
+        return fechadeBaja;
     }
 
+    public void setFechadeBaja(String fechadeBaja) {
+        this.fechadeBaja = fechadeBaja;
+    }
 
+    public int getDni() {
+        return dni;
+    }
 
-public String getFechadeBaja() {
- return fechadeBaja;
-}
+    public void setDni(int dni) {
+        this.dni = dni;
+    }
 
-public void setFechadeBaja(String fechadeBaja) {
- this.fechadeBaja = fechadeBaja;
-}
+    public String getApellido() {
+        return apellido;
+    }
 
-public int getDni() {
- return dni;
-}
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
 
-public void setDni(int dni) {
- this.dni = dni;
-}
+    public String getMail() {
+        return mail;
+    }
 
-public String getApellido() {
- return apellido;
-}
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
 
-public void setApellido(String apellido) {
- this.apellido = apellido;
-}
+    public int getEstado() {
+        return estado;
+    }
 
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
 
-public String getMail() {
- return mail;
-}
+    public String getFechadeAlta() {
+        return fechadeAlta;
+    }
 
-public void setMail(String mail) {
- this.mail = mail;
-}
+    public void setFechadeAlta(String fechadeAlta) {
+        this.fechadeAlta = fechadeAlta;
+    }
 
-public int getEstado() {
- return estado;
-}
+    public String getNombre() {
+        return nombre;
+    }
 
-public void setEstado(int estado) {
- this.estado = estado;
-}
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-public String getFechadeAlta() {
- return fechadeAlta;
-}
+    public long getTelefono() {
+        return telefono;
+    }
 
-public void setFechadeAlta(String fechadeAlta) {
- this.fechadeAlta = fechadeAlta;
-}
+    public void setTelefono(long telefono) {
+        this.telefono = telefono;
+    }
 
-public String getNombre() {
- return nombre;
-}
+    public void nuevoCliente() {
+        op.nuevoCliente(dni, apellido, nombre, telefono, mail, fechadeAlta, estado, domicilio);
+    }
 
-public void setNombre(String nombre) {
- this.nombre = nombre;
-}
+    public void listaClientes() {
+        op.listadodeClientes();
+    }
 
+    public void buscarClientes() {
+        op.buscarClientes(dni);
+    }
 
-public long getTelefono() {
- return telefono;
-}
+    public void actualizarCliente() {
+        op.actualizarClientes(dni, nombre, apellido, telefono, mail, direccion);
+    }
 
-public void setTelefono(long telefono) {
- this.telefono = telefono;
-}
+    public void eliminarCliente() {
+        op.eliminarCliente(dni, fechadeBaja);
+    }
 
-public void nuevoCliente(){
- op.nuevoCliente(dni,apellido,nombre,telefono,mail,fechadeAlta,estado,direccion);
-}
+    public boolean buscar() {
+        boolean resultado = false;
+        op.verificarDni(resultado, dni);
+        return resultado;
+    }
 
-public void listaClientes() {
- op.listadodeClientes();
-}
-
-public void buscarClientes() {
- op.buscarClientes(dni);
-}
-
-public void actualizarCliente(){
- op.actualizarClientes(dni,nombre,apellido,telefono,mail,direccion);
-}
-
-public void eliminarCliente(){
- op.eliminarCliente(dni,fechadeBaja);
-}
-
-public boolean buscar() {
-    boolean resultado = false;
-    op.verificarDni(resultado,dni);
-    return resultado;
-}
- 
 }

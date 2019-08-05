@@ -38,14 +38,14 @@ public final class nuevoEmpleados extends javax.swing.JDialog {
         emp.cargarCategoria(1);
         lblFecha.setText(emp.fh.fecha());
         lblHora.setText(emp.fh.hora());
-        dom.obtenerProvincias();
+        dom.obtenerProvincias(comboProvincia);
         Provincia prov = (Provincia)comboProvincia.getSelectedItem();
-        dom.obtenerLocalidad(prov);
+        dom.obtenerLocalidad(prov,comboLocalidad);
         comboProvincia.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Provincia prov = (Provincia)comboProvincia.getSelectedItem();
-                dom.obtenerLocalidad(prov);
+                dom.obtenerLocalidad(prov,comboLocalidad);
             }
         });
     }

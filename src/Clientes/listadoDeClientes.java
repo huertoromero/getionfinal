@@ -52,11 +52,11 @@ private Clientes cli = new Clientes();
 
             },
             new String [] {
-                "Dni", "Apellido", "Nombre", "Telefono", "Celular", "Sexo", "EMail", "Direccion"
+                "Dni", "Apellido", "Nombre", "Telefono", "Celular", "Sexo", "EMail", "Domicilio"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -71,11 +71,11 @@ private Clientes cli = new Clientes();
         });
         jScrollPane1.setViewportView(listadoClientes);
 
-        jLabel1.setFont(new java.awt.Font("Courier New", 1, 18));
+        jLabel1.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(-1,true));
         jLabel1.setText("BUSCAR:");
 
-        txtBuscarCliente.setFont(new java.awt.Font("Tahoma", 1, 18));
+        txtBuscarCliente.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         txtBuscarCliente.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtBuscarClienteKeyReleased(evt);
@@ -85,7 +85,7 @@ private Clientes cli = new Clientes();
             }
         });
 
-        btnBuscar.setFont(new java.awt.Font("Tahoma", 1, 14));
+        btnBuscar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/buscar.png"))); // NOI18N
         btnBuscar.setText("BUSCAR");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -94,7 +94,7 @@ private Clientes cli = new Clientes();
             }
         });
 
-        btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 14));
+        btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cancelar.png"))); // NOI18N
         btnCancelar.setText("CANCELAR");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -106,7 +106,7 @@ private Clientes cli = new Clientes();
         btnSalir.setForeground(new java.awt.Color(255, 255, 255));
         btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Salir.png"))); // NOI18N
         btnSalir.setText("Atrás");
-        btnSalir.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
+        btnSalir.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnSalir.setFocusable(false);
         btnSalir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnSalir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -119,7 +119,7 @@ private Clientes cli = new Clientes();
         btnImprimir.setForeground(new java.awt.Color(-1,true));
         btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Pdf.png"))); // NOI18N
         btnImprimir.setText("Exportar");
-        btnImprimir.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
+        btnImprimir.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnImprimir.setFocusable(false);
         btnImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnImprimir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -132,7 +132,7 @@ private Clientes cli = new Clientes();
         btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
         btnRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/nuevo.png"))); // NOI18N
         btnRegistrar.setText("Registrar");
-        btnRegistrar.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
+        btnRegistrar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnRegistrar.setFocusable(false);
         btnRegistrar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnRegistrar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -145,7 +145,7 @@ private Clientes cli = new Clientes();
         btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
         btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/actualizar.png"))); // NOI18N
         btnActualizar.setText("Modificar");
-        btnActualizar.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
+        btnActualizar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnActualizar.setFocusable(false);
         btnActualizar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnActualizar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -158,7 +158,7 @@ private Clientes cli = new Clientes();
         btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/eliminar.jpg"))); // NOI18N
         btnEliminar.setText("Eliminar");
-        btnEliminar.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
+        btnEliminar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnEliminar.setFocusable(false);
         btnEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnEliminar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -232,8 +232,8 @@ private Clientes cli = new Clientes();
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-1037)/2, (screenSize.height-571)/2, 1037, 571);
+        setSize(new java.awt.Dimension(1037, 571));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -325,7 +325,7 @@ controladorCliente.buscarCliente2();
 }//GEN-LAST:event_txtBuscarClienteKeyReleased
 
  private void tabla(){
- String[] titulos ={"Dni","Apellido","Nombre","Telefono","EMail","Direccion"};
+ String[] titulos ={"Dni","Apellido","Nombre","Telefono","EMail","Domicilio"};
  m = new DefaultTableModel(null,titulos);
  listadoClientes.setModel(m);
 }

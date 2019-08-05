@@ -12,7 +12,7 @@ public class listadoDeProveedores extends javax.swing.JDialog {
 
  public static DefaultTableModel m;
  public String strTituloPDF = "UTN-FRT";
- private Proveedor pro = new Proveedor();
+ private static Proveedor pro = new Proveedor();
 
     public listadoDeProveedores(java.awt.Frame parent, boolean modal) {
      super(parent, modal);
@@ -305,19 +305,19 @@ public class listadoDeProveedores extends javax.swing.JDialog {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
      txtRazonSocial.requestFocus();
      tabla();
-     m.setColumnCount(0);
-     m.setRowCount(0);
-     pro.listadoDeProveedores();
     }//GEN-LAST:event_formWindowOpened
 
 private void txtRazonSocialKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRazonSocialKeyReleased
 controladorProveedores.listarProveedores();
 }//GEN-LAST:event_txtRazonSocialKeyReleased
 
-private void tabla(){
+public static void tabla(){
  String[] titulos ={"Razon Social","Telefono","Fecha de Alta","Email","Direccion","Provincia"};
  m = new DefaultTableModel(null,titulos);
  listadoProveedores.setModel(m);
+ m.setColumnCount(0);
+     m.setRowCount(0);
+     pro.listadoDeProveedores();
 }
 
     public static void main(String args[]) {

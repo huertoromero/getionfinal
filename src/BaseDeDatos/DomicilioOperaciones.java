@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 
 /**
  *
@@ -23,7 +24,7 @@ import javax.swing.DefaultComboBoxModel;
 public class DomicilioOperaciones {
     Conexion con = new Conexion();
     
-    public void obtenerLocalidad(Provincia provincia){
+    public void obtenerLocalidad(Provincia provincia, JComboBox comboBox){
         con.conectarBaseDeDatos();
             
         try {
@@ -34,15 +35,15 @@ public class DomicilioOperaciones {
             while(res.next()){
                 Localidad localidad = new Localidad(res.getInt("idLocalidad"),res.getString("nombrelocalidad"),
                         res.getInt("codigoPostal"),new Provincia(res.getInt("idProvincia"),res.getString("nombreprovincia")));
-                nuevoEmpleados.getComboLocalidad().removeAll();
-                nuevoEmpleados.getComboLocalidad().addItem(localidad);
+                comboBox.removeAll();
+                comboBox.addItem(localidad);
             }
         } catch (SQLException ex) {
             Logger.getLogger(DomicilioOperaciones.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
-    public void obtenerProvincias(){
+    public void obtenerProvincias(JComboBox comboBox){
         con.conectarBaseDeDatos();
             
         try {
@@ -52,8 +53,8 @@ public class DomicilioOperaciones {
             DefaultComboBoxModel model = new DefaultComboBoxModel();
             while(res.next()){
                 Provincia prov = new Provincia(res.getInt("idProvincia"), res.getString("nombreprovincia"));
-                nuevoEmpleados.getComboProvincia().removeAll();
-                nuevoEmpleados.getComboProvincia().addItem(prov);
+                comboBox.removeAll();
+                comboBox.addItem(prov);
             }
         } catch (SQLException ex) {
             Logger.getLogger(DomicilioOperaciones.class.getName()).log(Level.SEVERE, null, ex);

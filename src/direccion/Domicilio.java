@@ -6,6 +6,7 @@
 package direccion;
 
 import BaseDeDatos.DomicilioOperaciones;
+import javax.swing.JComboBox;
 
 /**
  *
@@ -67,10 +68,10 @@ public class Domicilio {
         this.numero = numero;
         this.localidad = localidad;
     }
-    public void obtenerLocalidad(Provincia provincia){
-        op.obtenerLocalidad(provincia);
+    public void obtenerLocalidad(Provincia provincia, JComboBox comboBox){
+        op.obtenerLocalidad(provincia,comboBox);
     }
-    public void obtenerProvincias(){
-        op.obtenerProvincias();
+    public void obtenerProvincias(JComboBox comboBox){
+        op.obtenerProvincias(comboBox);
     }
 }

@@ -468,7 +468,7 @@ public class Operaciones {
         }
     }
 
-    public void nuevoCliente(int dni, String apellido, String nombre, long telefono, String mail, String fecha, int estado, String direccion) {
+    public void nuevoCliente(int dni, String apellido, String nombre, long telefono, String mail, String fecha, int estado, Domicilio domicilio) {
         try {
             con.conectarBaseDeDatos();
             PreparedStatement pstm3 = con.getConnection().prepareStatement("SELECT Estado FROM clientes WHERE dniCliente = '" + dni + "'");
@@ -488,7 +488,23 @@ public class Operaciones {
                     JOptionPane.showMessageDialog(null, "El Numero de Dni se encuentra en uso por otro cliente", "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                PreparedStatement pstm = con.getConnection().prepareStatement("INSERT into clientes(dniCliente,Apellido,Nombre,Telefono,EMail,FechaDeAlta,Estado,direccion) values(?,?,?,?,?,?,?,?)");
+                PreparedStatement pstmDomicilio = con.getConnection().prepareStatement("INSERT into domicilio(calle,numero,idLocalidad) values(?,?,?)");
+                pstmDomicilio.setString(1,domicilio.getCalle());
+                pstmDomicilio.setInt(2,domicilio.getNumero());
+                pstmDomicilio.setInt(3,domicilio.getLocalidad().getIdLocalidad());
+                boolean bdomicilio = pstmDomicilio.execute();
+                pstmDomicilio = con.getConnection().prepareStatement("select * from domicilio order by idDomicilio desc limit 1");
+                    ResultSet restultDomicilio = pstmDomicilio.executeQuery();
+                    if(restultDomicilio.next()){
+                        domicilio.setIdDomicilio(restultDomicilio.getInt("idDomicilio"));
+                    }
+                PreparedStatement pstm = null;
+                if(domicilio.getIdDomicilio() == null){
+                     pstm = con.getConnection().prepareStatement("INSERT into clientes(dniCliente,Apellido,Nombre,Telefono,EMail,FechaDeAlta,Estado) values(?,?,?,?,?,?,?)");
+                }else{
+                    pstm = con.getConnection().prepareStatement("INSERT into clientes(dniCliente,Apellido,Nombre,Telefono,EMail,FechaDeAlta,Estado,idDomicilio) values(?,?,?,?,?,?,?,?)");
+                    pstm.setInt(8, domicilio.getIdDomicilio());
+                }
                 pstm.setInt(1, dni);
                 pstm.setString(2, apellido);
                 pstm.setString(3, nombre);
@@ -496,7 +512,6 @@ public class Operaciones {
                 pstm.setString(5, mail);
                 pstm.setString(6, fecha);
                 pstm.setInt(7, estado);
-                pstm.setString(8, direccion);
                 pstm.execute();
                 pstm.close();
 //   PreparedStatement pstm2 = con.getConnection().prepareStatement("INSERT into direccion(idLocalidad,dniCliente,Calle,Numero,piso,departamento) values(?,?,?,?,?,?)");
@@ -521,7 +536,7 @@ public class Operaciones {
         con.conectarBaseDeDatos();
         Object[] registro = new String[6];
         try {
-            PreparedStatement pstm = con.getConnection().prepareStatement("SELECT cli.dniCliente,cli.Apellido,cli.Nombre,cli.Telefono,cli.Email,cli.direccion FROM clientes cli WHERE  cli.estado = 1");
+            PreparedStatement pstm = con.getConnection().prepareStatement("SELECT cli.dniCliente,cli.Apellido,cli.Nombre,cli.Telefono,cli.Email, CONCAT(dom.calle,'-',dom.numero) as domicilio FROM clientes cli LEFT JOIN domicilio as dom ON cli.idDomicilio=dom.idDomicilio WHERE  cli.estado = 1");
             ResultSet res = pstm.executeQuery();
             while (res.next()) {
                 registro[0] = res.getObject("cli.dniCliente").toString();
@@ -529,7 +544,7 @@ public class Operaciones {
                 registro[2] = res.getObject("cli.Nombre").toString();
                 registro[3] = res.getObject("cli.Telefono").toString();
                 registro[4] = res.getObject("cli.Email").toString();
-                registro[5] = res.getObject("direccion").toString();
+                registro[5] = res.getObject("domicilio").toString();
                 listadoDeClientes.m.addRow(registro);
             }
             res.close();
@@ -798,14 +813,12 @@ public class Operaciones {
         }
     }
 
-    public void nuevoProveedor(String razonSocial, long telefono, String email, String fechaAlta, int estado, String direccion, String provincia) { // NO ANDA BIEN
+    public void nuevoProveedor(String razonSocial, long telefono, String email, String fechaAlta, int estado, Domicilio domicilio) { // NO ANDA BIEN
 //int idProveedor=0;
         String rs = razonSocial;
         String tel = Long.toString(telefono);
         String fec = fechaAlta;
         String mail = email;
-        String dir = direccion;
-        String prov = provincia;
         try {
             con.conectarBaseDeDatos();
             PreparedStatement pstm1 = con.getConnection().prepareStatement("SELECT Estado FROM proveedor WHERE RazonSocial LIKE '" + razonSocial + "'");
@@ -826,34 +839,30 @@ public class Operaciones {
                     res1.close();
                 }
             } else {
-                PreparedStatement pstm3 = con.getConnection().prepareStatement("INSERT into proveedor(RazonSocial,Telefono,EMail,fechadeAlta,Estado,direccion,provincia) values(?,?,?,?,?,?,?)");
+                PreparedStatement pstmDomicilio = con.getConnection().prepareStatement("INSERT into domicilio(calle,numero,idLocalidad) values(?,?,?)");
+                pstmDomicilio.setString(1,domicilio.getCalle());
+                pstmDomicilio.setInt(2,domicilio.getNumero());
+                pstmDomicilio.setInt(3,domicilio.getLocalidad().getIdLocalidad());
+                boolean bdomicilio = pstmDomicilio.execute();
+                pstmDomicilio = con.getConnection().prepareStatement("select * from domicilio order by idDomicilio desc limit 1");
+                    ResultSet restultDomicilio = pstmDomicilio.executeQuery();
+                    if(restultDomicilio.next()){
+                        domicilio.setIdDomicilio(restultDomicilio.getInt("idDomicilio"));
+                    }
+                PreparedStatement pstm3 = null;
+                if(domicilio.getIdDomicilio() == null){
+                     pstm3 = con.getConnection().prepareStatement("INSERT into proveedor(RazonSocial,Telefono,EMail,fechadeAlta,Estado) values(?,?,?,?,?)");
+                }else{
+                    pstm3 = con.getConnection().prepareStatement("INSERT into proveedor(RazonSocial,Telefono,EMail,fechadeAlta,Estado,idDomicilio) values(?,?,?,?,?,?)");
+                    pstm3.setInt(6, domicilio.getIdDomicilio());
+                }
                 pstm3.setString(1, razonSocial);
                 pstm3.setLong(2, telefono);
                 pstm3.setString(3, email);
                 pstm3.setString(4, fechaAlta);
                 pstm3.setInt(5, estado);
-                pstm3.setString(6, direccion);
-                pstm3.setString(7, provincia);
                 pstm3.execute();
                 pstm3.close();
-                Object[] fila = {rs, tel, mail, fec, dir, prov};
-                listadoDeProveedores.m.addRow(fila);
-//   PreparedStatement pstm4 = con.getConnection().prepareStatement("Select max(idProveedor) FROM proveedor WHERE RazonSocial LIKE '" + razonSocial + "'");
-//   ResultSet res2 = pstm4.executeQuery();
-//   if(res2.next()==true){
-//    System.out.print(res2.getInt("max(idProveedor)"));
-//    idProveedor = res2.getInt("max(idProveedor)");
-//    res2.close();
-//   }
-//   PreparedStatement pstm5 = con.getConnection().prepareStatement("INSERT into direccion(idLocalidad,idProveedor,Calle,Numero,piso,departamento) values(?,?,?,?,?,?)");
-//   pstm5.setInt(1,descripcion);
-//   pstm5.setInt(2,idProveedor);
-//   pstm5.setString(3,calle);
-//   pstm5.setInt(4,numero);
-//   pstm5.setInt(5,piso);
-//   pstm5.setString(6,departamento);
-//   pstm5.execute();
-//   pstm5.close();
                 JOptionPane.showMessageDialog(null, "Registro Completo", "FELICIDADES", JOptionPane.INFORMATION_MESSAGE);
                 con.desconectarBaseDeDatos();
                 nuevoProveedor.nuevo();
@@ -899,7 +908,7 @@ public class Operaciones {
         listadoDeProveedores.m.setRowCount(0);
         con.conectarBaseDeDatos();
         try {
-            PreparedStatement pstm = con.getConnection().prepareStatement("SELECT pro.RazonSocial,pro.Telefono,pro.EMail,pro.fechadeAlta,pro.direccion,pro.provincia FROM proveedor pro WHERE  pro.Estado = 1");
+            PreparedStatement pstm = con.getConnection().prepareStatement("SELECT pro.RazonSocial,pro.Telefono,pro.EMail,pro.fechadeAlta, CONCAT(dom.calle,'-',dom.numero) as domicilio FROM proveedor pro LEFT JOIN domicilio as dom ON pro.idDomicilio=dom.idDomicilio WHERE  pro.Estado = 1");
             ResultSet res = pstm.executeQuery();
             ResultSetMetaData rsmd = res.getMetaData();
             int cantidadColumnas = rsmd.getColumnCount();
