@@ -35,7 +35,7 @@ public class DomicilioOperaciones {
             while(res.next()){
                 Localidad localidad = new Localidad(res.getInt("idLocalidad"),res.getString("nombrelocalidad"),
                         res.getInt("codigoPostal"),new Provincia(res.getInt("idProvincia"),res.getString("nombreprovincia")));
-                comboBox.removeAll();
+                comboBox.removeAllItems();
                 comboBox.addItem(localidad);
             }
         } catch (SQLException ex) {
@@ -53,7 +53,7 @@ public class DomicilioOperaciones {
             DefaultComboBoxModel model = new DefaultComboBoxModel();
             while(res.next()){
                 Provincia prov = new Provincia(res.getInt("idProvincia"), res.getString("nombreprovincia"));
-                comboBox.removeAll();
+                comboBox.removeAllItems();
                 comboBox.addItem(prov);
             }
         } catch (SQLException ex) {

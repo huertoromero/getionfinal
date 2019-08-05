@@ -38,6 +38,7 @@ public final class nuevoEmpleados extends javax.swing.JDialog {
         emp.cargarCategoria(1);
         lblFecha.setText(emp.fh.fecha());
         lblHora.setText(emp.fh.hora());
+        comboProvincia.removeAllItems();
         dom.obtenerProvincias(comboProvincia);
         Provincia prov = (Provincia)comboProvincia.getSelectedItem();
         dom.obtenerLocalidad(prov,comboLocalidad);
@@ -45,6 +46,7 @@ public final class nuevoEmpleados extends javax.swing.JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Provincia prov = (Provincia)comboProvincia.getSelectedItem();
+                comboLocalidad.removeAllItems();
                 dom.obtenerLocalidad(prov,comboLocalidad);
             }
         });
