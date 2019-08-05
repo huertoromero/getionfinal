@@ -32,10 +32,10 @@ public class DomicilioOperaciones {
             ResultSet res = pstm.executeQuery();
             ResultSetMetaData rsmd = res.getMetaData();
             DefaultComboBoxModel model = new DefaultComboBoxModel();
+            comboBox.removeAllItems();
             while(res.next()){
                 Localidad localidad = new Localidad(res.getInt("idLocalidad"),res.getString("nombrelocalidad"),
                         res.getInt("codigoPostal"),new Provincia(res.getInt("idProvincia"),res.getString("nombreprovincia")));
-                comboBox.removeAllItems();
                 comboBox.addItem(localidad);
             }
         } catch (SQLException ex) {
@@ -51,9 +51,9 @@ public class DomicilioOperaciones {
             ResultSet res = pstm.executeQuery();
             ResultSetMetaData rsmd = res.getMetaData();
             DefaultComboBoxModel model = new DefaultComboBoxModel();
+            comboBox.removeAllItems();
             while(res.next()){
                 Provincia prov = new Provincia(res.getInt("idProvincia"), res.getString("nombreprovincia"));
-                comboBox.removeAllItems();
                 comboBox.addItem(prov);
             }
         } catch (SQLException ex) {
