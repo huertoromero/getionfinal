@@ -2,37 +2,54 @@ package Empleados;
 
 import Clases.Empleados;
 import Clases.GrupoFamiliar;
+import direccion.Domicilio;
+import direccion.Localidad;
+import direccion.Provincia;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 public final class nuevoEmpleados extends javax.swing.JDialog {
-
-
-public DefaultTableModel m;
-private Empleados emp = new Empleados();
-private GrupoFamiliar gf = new GrupoFamiliar();
-
-public nuevoEmpleados(java.awt.Frame parent, boolean modal) {
- super(parent, modal);
- initComponents();
- String[] titulos ={"Dni","Apellido","Nombre","Fecha de Nacimiento","Parentesco"};
- m = new DefaultTableModel(null,titulos);
- tablaGrupo.setModel(m);
- centrarDatos();
+    
+    public DefaultTableModel m;
+    private Empleados emp = new Empleados();
+    private GrupoFamiliar gf = new GrupoFamiliar();
+    private Domicilio dom = new Domicilio();
+    
+    public nuevoEmpleados(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+        String[] titulos = {"Dni", "Apellido", "Nombre", "Fecha de Nacimiento", "Parentesco"};
+        m = new DefaultTableModel(null, titulos);
+        tablaGrupo.setModel(m);
+        centrarDatos();
 // emp.dir.loc.cargarLocalidades(1);
- emp.cargarCategoria(1);
- lblFecha.setText(emp.fh.fecha());
- lblHora.setText(emp.fh.hora());
-}
-
+        emp.cargarCategoria(1);
+        lblFecha.setText(emp.fh.fecha());
+        lblHora.setText(emp.fh.hora());
+        dom.obtenerProvincias();
+        Provincia prov = (Provincia)comboProvincia.getSelectedItem();
+        dom.obtenerLocalidad(prov);
+        comboProvincia.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Provincia prov = (Provincia)comboProvincia.getSelectedItem();
+                dom.obtenerLocalidad(prov);
+            }
+        });
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -76,6 +93,9 @@ public nuevoEmpleados(java.awt.Frame parent, boolean modal) {
         jLabel16 = new javax.swing.JLabel();
         comboProvincia = new javax.swing.JComboBox();
         comboLocalidad = new javax.swing.JComboBox();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        txtNumero = new javax.swing.JTextField();
         panelLaboral = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         btnAgregar = new javax.swing.JButton();
@@ -174,9 +194,9 @@ public nuevoEmpleados(java.awt.Frame parent, boolean modal) {
         jLabel14.setForeground(new java.awt.Color(-1,true));
         jLabel14.setText("Localidad");
 
-        jLabel15.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(-1,true));
-        jLabel15.setText("Direccion:");
+        jLabel15.setText("Domicilio");
 
         txtCalle.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         txtCalle.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -273,10 +293,18 @@ public nuevoEmpleados(java.awt.Frame parent, boolean modal) {
         jLabel16.setText("Provincia");
 
         comboProvincia.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        comboProvincia.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Provincia", "Buenos Aires", "Jujuy", "Salta", "Santa Fe", "Tucumán", " ", " " }));
 
         comboLocalidad.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        comboLocalidad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Localidad", "Aguilares", "Concepción", "San Miguel de Tucumán", "Yerba Buena" }));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Calle:");
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Numero:");
+
+        txtNumero.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout panelPersonalLayout = new javax.swing.GroupLayout(panelPersonal);
         panelPersonal.setLayout(panelPersonalLayout);
@@ -308,7 +336,7 @@ public nuevoEmpleados(java.awt.Frame parent, boolean modal) {
                         .addGap(201, 201, 201))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPersonalLayout.createSequentialGroup()
                         .addComponent(jLabel23)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 165, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 173, Short.MAX_VALUE)
                         .addComponent(comboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(416, 416, 416))
                     .addGroup(panelPersonalLayout.createSequentialGroup()
@@ -350,14 +378,24 @@ public nuevoEmpleados(java.awt.Frame parent, boolean modal) {
                             .addGroup(panelPersonalLayout.createSequentialGroup()
                                 .addGroup(panelPersonalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel15)
-                                    .addComponent(jLabel14)
-                                    .addComponent(jLabel16))
+                                    .addComponent(jLabel5))
                                 .addGap(18, 18, 18)
                                 .addGroup(panelPersonalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(comboProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtCalle, javax.swing.GroupLayout.PREFERRED_SIZE, 609, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(comboLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(200, 200, Short.MAX_VALUE))))
+                                    .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(203, 203, Short.MAX_VALUE))
+                    .addGroup(panelPersonalLayout.createSequentialGroup()
+                        .addGroup(panelPersonalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addGroup(panelPersonalLayout.createSequentialGroup()
+                                .addComponent(jLabel14)
+                                .addGap(18, 18, 18)
+                                .addComponent(comboLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPersonalLayout.createSequentialGroup()
+                                .addComponent(jLabel16)
+                                .addGap(18, 18, 18)
+                                .addComponent(comboProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         panelPersonalLayout.setVerticalGroup(
             panelPersonalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -400,25 +438,31 @@ public nuevoEmpleados(java.awt.Frame parent, boolean modal) {
                     .addComponent(mesIngreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(diaIngreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel27))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
                 .addGroup(panelPersonalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(diaNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(mesNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(añoNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
-                .addGap(21, 21, 21)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel15)
+                .addGap(13, 13, 13)
                 .addGroup(panelPersonalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel15)
+                    .addComponent(jLabel1)
                     .addComponent(txtCalle, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(24, 24, 24)
                 .addGroup(panelPersonalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
-                    .addComponent(comboLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
                 .addGap(18, 18, 18)
                 .addGroup(panelPersonalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
                     .addComponent(comboProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(154, 154, 154))
+                .addGap(18, 18, 18)
+                .addGroup(panelPersonalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(comboLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(67, 67, 67))
         );
 
         panelPersonales.addTab("DATOS PERSONALES ", panelPersonal);
@@ -618,7 +662,7 @@ public nuevoEmpleados(java.awt.Frame parent, boolean modal) {
                 .addGroup(panelLaboralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(138, Short.MAX_VALUE))
+                .addContainerGap(151, Short.MAX_VALUE))
         );
         panelLaboralLayout.setVerticalGroup(
             panelLaboralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -743,7 +787,7 @@ public nuevoEmpleados(java.awt.Frame parent, boolean modal) {
                 .addComponent(btnAceptar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCancelar2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 561, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 579, Short.MAX_VALUE)
                 .addComponent(btnSalir)
                 .addContainerGap())
         );
@@ -801,7 +845,7 @@ public nuevoEmpleados(java.awt.Frame parent, boolean modal) {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(41, Short.MAX_VALUE)
+                .addContainerGap(49, Short.MAX_VALUE)
                 .addComponent(panelPersonales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -818,347 +862,339 @@ public nuevoEmpleados(java.awt.Frame parent, boolean modal) {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-public void centrarDatos(){
- DefaultTableCellRenderer modelocentrar = new DefaultTableCellRenderer();
- modelocentrar.setHorizontalAlignment(SwingConstants.CENTER);
- tablaGrupo.getColumnModel().getColumn(0).setCellRenderer(modelocentrar);
- tablaGrupo.getColumnModel().getColumn(3).setCellRenderer(modelocentrar);
- tablaGrupo.getColumnModel().getColumn(4).setCellRenderer(modelocentrar);
-}
-
-
-
-private void ingresarEmpleado(){
- if(!txtDni.getText().equals("") && comboCategoria.getSelectedIndex()!=-1 && !txtNombre.getText().equals("") && 
-         !txtApellido.getText().equals("") && !txtCuil.getText().equals("") &&  !txtTelefono.getText().equals("")
-         && !txtUsuario.getText().equals("") && !txtContra.getText().equals("") && !buscaDni(txtDni.getText())
-         && !buscaDni2(txtDniGrupo.getText())){
- int mesIng = mesIngreso.getSelectedIndex();
- int mesNa = mesNac.getSelectedIndex();
- if(emp.fh.confirmarFecha(String.valueOf(diaIngreso.getSelectedItem().toString()+"/"+ mesIng +"/"+ añoIngreso.getSelectedItem().toString())) == true && emp.fh.confirmarFecha(String.valueOf(diaNac.getSelectedItem().toString() +"/"+ mesNa +"/"+ añoNac.getSelectedItem().toString())) == true){
- String ingreso = añoIngreso.getSelectedItem().toString() + "/" + mesIng + "/" + diaIngreso.getSelectedItem().toString();
- String nacimiento = añoNac.getSelectedItem().toString() + "/" + mesNa + "/" + diaNac.getSelectedItem().toString();
- emp.setDni(Integer.valueOf(txtDni.getText().toLowerCase()));
- emp.setCategoria(comboCategoria.getSelectedIndex()+1);
- emp.setNombre(txtNombre.getText().toLowerCase());
- emp.setApellido(txtApellido.getText().toLowerCase());
- emp.setFechaDeNacimiento(nacimiento);
- emp.setCuil(Long.parseLong(txtCuil.getText().toString()));
+    public void centrarDatos() {
+        DefaultTableCellRenderer modelocentrar = new DefaultTableCellRenderer();
+        modelocentrar.setHorizontalAlignment(SwingConstants.CENTER);
+        tablaGrupo.getColumnModel().getColumn(0).setCellRenderer(modelocentrar);
+        tablaGrupo.getColumnModel().getColumn(3).setCellRenderer(modelocentrar);
+        tablaGrupo.getColumnModel().getColumn(4).setCellRenderer(modelocentrar);
+    }
+    
+    private void ingresarEmpleado() {
+        if (!txtDni.getText().equals("") && comboCategoria.getSelectedIndex() != -1 && !txtNombre.getText().equals("")
+                && !txtApellido.getText().equals("") && !txtCuil.getText().equals("") && !txtTelefono.getText().equals("")
+                && !txtUsuario.getText().equals("") && !txtContra.getText().equals("") && !buscaDni(txtDni.getText())
+                && !buscaDni2(txtDniGrupo.getText())) {
+            int mesIng = mesIngreso.getSelectedIndex();
+            int mesNa = mesNac.getSelectedIndex();
+            if (emp.fh.confirmarFecha(String.valueOf(diaIngreso.getSelectedItem().toString() + "/" + mesIng + "/" + añoIngreso.getSelectedItem().toString())) == true && emp.fh.confirmarFecha(String.valueOf(diaNac.getSelectedItem().toString() + "/" + mesNa + "/" + añoNac.getSelectedItem().toString())) == true) {
+                String ingreso = añoIngreso.getSelectedItem().toString() + "/" + mesIng + "/" + diaIngreso.getSelectedItem().toString();
+                String nacimiento = añoNac.getSelectedItem().toString() + "/" + mesNa + "/" + diaNac.getSelectedItem().toString();
+                emp.setDni(Integer.valueOf(txtDni.getText().toLowerCase()));
+                emp.setCategoria(comboCategoria.getSelectedIndex() + 1);
+                emp.setNombre(txtNombre.getText().toLowerCase());
+                emp.setApellido(txtApellido.getText().toLowerCase());
+                emp.setFechaDeNacimiento(nacimiento);
+                emp.setCuil(Long.parseLong(txtCuil.getText().toString()));
 // emp.setEstadoCivil(comboEstado.getSelectedItem().toString());
 // emp.setSexo(comboSexo.getSelectedItem().toString());
- emp.setFechaDeIngreso(ingreso);
- emp.setTelefono(Long.parseLong(txtTelefono.getText()));
+                emp.setFechaDeIngreso(ingreso);
+                emp.setTelefono(Long.parseLong(txtTelefono.getText()));
 // emp.setCelular(Long.parseLong(txtCelular.getText()));
- emp.setEmail(txtMail.getText().toLowerCase());
- emp.setEstado(1);
+                emp.setEmail(txtMail.getText().toLowerCase());
+                emp.setEstado(1);
 // int idLocalidad = comboLocalidad.getSelectedIndex() + 1;
 // emp.dir.loc.setDescripcion(idLocalidad);
- emp.setDireccion(txtCalle.getText().toString().toLowerCase()); 
+                emp.setDomicilio(new Domicilio(txtCalle.getText(), Integer.parseInt(txtNumero.getText()), (Localidad)comboLocalidad.getSelectedItem()));
 // if(!txtNumero.getText().equals("")){}{emp.dir.setNumero(Integer.parseInt(txtNumero.getText().toString()));}
 // if(comboPiso.getSelectedIndex()!=0){emp.dir.setPiso(Integer.valueOf(comboPiso.getSelectedItem().toString()));}
 // if(comboDepartamento.getSelectedIndex()!=0){emp.dir.setDepartamento(comboDepartamento.getSelectedItem().toString());}
- boolean empleado = emp.nuevoEmpleado();
- if(empleado==true){
-  cargarUsuario();
-  }
- }
+                boolean empleado = emp.nuevoEmpleado();
+                if (empleado == true) {
+                    cargarUsuario();
+                }
+            }
  // NO ESTAN BIEN ESTOS IF, SIEMPRE SALE ERROR DE FECHAS. PERO IGUAL SE GRABAN
- 
+
 // if(emp.fh.confirmarFecha(String.valueOf(diaIngreso.getSelectedItem().toString()+"/"+ mesIng +"/"+ añoIngreso.getSelectedItem().toString())) ==false){
 //  JOptionPane.showMessageDialog(null,"Fecha de Ingreso no Valida", "Error", JOptionPane.ERROR_MESSAGE);
 // }
 // if(emp.fh.confirmarFecha(String.valueOf(diaNac.getSelectedItem().toString() +"/"+ mesNa +"/"+ añoNac.getSelectedItem().toString()))==false){
 //  JOptionPane.showMessageDialog(null,"Fecha de Nacimiento no Valida", "Error", JOptionPane.ERROR_MESSAGE);
 // }
-}
- else{
-  JOptionPane.showMessageDialog(null,"FALTAN DATOS", "Error", JOptionPane.ERROR_MESSAGE);
- }
-}
-
-public void cargarUsuario(){
-  try {
-   emp.ur.setUsuario(txtUsuario.getText());
-   emp.ur.setContraseña(emp.ur.encriptacion(txtContra.getText().toString()));
-   
-   if(comboCategoria.getSelectedIndex()+1==1){
-       
-       if(radClientes.isSelected()==true){
-               emp.ur.setMenuCliente(1);
-       }
-       if(radCompras.isSelected()==true){
-               emp.ur.setMenuCompra(1);
-       }
-       if(radEmpleados.isSelected()==true){
-               emp.ur.setMenuEmpleados(1);
-       }
-       if(radProductos.isSelected()==true){
-               emp.ur.setMenuProducto(1);
-       }
-       if(radProveedores.isSelected()==true){
-               emp.ur.setMenuProveedor(1);
-       }
-       if(radSalarios.isSelected()==true){
-               emp.ur.setMenuSalario(1);
-       }
-       if(radVentas.isSelected()==true){
-               emp.ur.setMenuVenta(1);
-       }
-       if(radServicios.isSelected()==true){
-               emp.ur.setMenuServicios(1);
-       }
-       
-       
-   }
-   if(comboCategoria.getSelectedIndex()+1==2){
-       
-       if(radClientes.isSelected()==true){
-               emp.ur.setMenuCliente(1);
-       }
-       if(radCompras.isSelected()==true){
-               emp.ur.setMenuCompra(1);
-       }
-       if(radEmpleados.isSelected()==true){
-               emp.ur.setMenuEmpleados(1);
-       }
-       if(radProductos.isSelected()==true){
-               emp.ur.setMenuProducto(1);
-       }
-       if(radProveedores.isSelected()==true){
-               emp.ur.setMenuProveedor(1);
-       }
-       if(radSalarios.isSelected()==true){
-               emp.ur.setMenuSalario(1);
-       }
-       if(radVentas.isSelected()==true){
-               emp.ur.setMenuVenta(1);
-       }
-       if(radServicios.isSelected()==true){
-               emp.ur.setMenuServicios(1);
-       }
-      
-   }
-   if(comboCategoria.getSelectedIndex()+1==3){
-    if(radClientes.isSelected()==true){
-               emp.ur.setMenuCliente(1);
-       }
-       if(radCompras.isSelected()==true){
-               emp.ur.setMenuCompra(1);
-       }
-       if(radEmpleados.isSelected()==true){
-               emp.ur.setMenuEmpleados(1);
-       }
-       if(radProductos.isSelected()==true){
-               emp.ur.setMenuProducto(1);
-       }
-       if(radProveedores.isSelected()==true){
-               emp.ur.setMenuProveedor(1);
-       }
-       if(radSalarios.isSelected()==true){
-               emp.ur.setMenuSalario(1);
-       }
-       if(radVentas.isSelected()==true){
-               emp.ur.setMenuVenta(1);
-       }
-       if(radServicios.isSelected()==true){
-               emp.ur.setMenuServicios(1);
-       }
-       
-       
-   }
-  
-   boolean usuario = emp.ur.cargarUsuario(Integer.parseInt(txtDni.getText()));
-   if(usuario == true){
-    if(m.getRowCount() >=1){
-     ingresarGrupoFamiliar();
+        } else {
+            JOptionPane.showMessageDialog(null, "FALTAN DATOS", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
-    else{
-     nuevo();
+    
+    public void cargarUsuario() {
+        try {
+            emp.ur.setUsuario(txtUsuario.getText());
+            emp.ur.setContraseña(emp.ur.encriptacion(txtContra.getText().toString()));
+            
+            if (comboCategoria.getSelectedIndex() + 1 == 1) {
+                
+                if (radClientes.isSelected() == true) {
+                    emp.ur.setMenuCliente(1);
+                }
+                if (radCompras.isSelected() == true) {
+                    emp.ur.setMenuCompra(1);
+                }
+                if (radEmpleados.isSelected() == true) {
+                    emp.ur.setMenuEmpleados(1);
+                }
+                if (radProductos.isSelected() == true) {
+                    emp.ur.setMenuProducto(1);
+                }
+                if (radProveedores.isSelected() == true) {
+                    emp.ur.setMenuProveedor(1);
+                }
+                if (radSalarios.isSelected() == true) {
+                    emp.ur.setMenuSalario(1);
+                }
+                if (radVentas.isSelected() == true) {
+                    emp.ur.setMenuVenta(1);
+                }
+                if (radServicios.isSelected() == true) {
+                    emp.ur.setMenuServicios(1);
+                }
+                
+            }
+            if (comboCategoria.getSelectedIndex() + 1 == 2) {
+                
+                if (radClientes.isSelected() == true) {
+                    emp.ur.setMenuCliente(1);
+                }
+                if (radCompras.isSelected() == true) {
+                    emp.ur.setMenuCompra(1);
+                }
+                if (radEmpleados.isSelected() == true) {
+                    emp.ur.setMenuEmpleados(1);
+                }
+                if (radProductos.isSelected() == true) {
+                    emp.ur.setMenuProducto(1);
+                }
+                if (radProveedores.isSelected() == true) {
+                    emp.ur.setMenuProveedor(1);
+                }
+                if (radSalarios.isSelected() == true) {
+                    emp.ur.setMenuSalario(1);
+                }
+                if (radVentas.isSelected() == true) {
+                    emp.ur.setMenuVenta(1);
+                }
+                if (radServicios.isSelected() == true) {
+                    emp.ur.setMenuServicios(1);
+                }
+                
+            }
+            if (comboCategoria.getSelectedIndex() + 1 == 3) {
+                if (radClientes.isSelected() == true) {
+                    emp.ur.setMenuCliente(1);
+                }
+                if (radCompras.isSelected() == true) {
+                    emp.ur.setMenuCompra(1);
+                }
+                if (radEmpleados.isSelected() == true) {
+                    emp.ur.setMenuEmpleados(1);
+                }
+                if (radProductos.isSelected() == true) {
+                    emp.ur.setMenuProducto(1);
+                }
+                if (radProveedores.isSelected() == true) {
+                    emp.ur.setMenuProveedor(1);
+                }
+                if (radSalarios.isSelected() == true) {
+                    emp.ur.setMenuSalario(1);
+                }
+                if (radVentas.isSelected() == true) {
+                    emp.ur.setMenuVenta(1);
+                }
+                if (radServicios.isSelected() == true) {
+                    emp.ur.setMenuServicios(1);
+                }
+                
+            }
+            
+            boolean usuario = emp.ur.cargarUsuario(Integer.parseInt(txtDni.getText()));
+            if (usuario == true) {
+                if (m.getRowCount() >= 1) {
+                    ingresarGrupoFamiliar();
+                } else {
+                    nuevo();
+                }
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(nuevoEmpleados.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-   }
-  } 
-  catch (Exception ex) {
-   Logger.getLogger(nuevoEmpleados.class.getName()).log(Level.SEVERE, null, ex);
-  }
- }
-
-private void ingresarGrupoFamiliar(){
- for(int i =0; i < m.getRowCount(); i++){
-  
-  emp.gf.setDniEmpleado(Integer.valueOf(txtDni.getText()));
-  emp.gf.setDni(Integer.parseInt(m.getValueAt(i,0).toString()));
-  emp.gf.setNombre(String.valueOf(m.getValueAt(i,1).toString()));
-  emp.gf.setApellido(String.valueOf(m.getValueAt(i,2).toString()));
-  emp.gf.setFechaNac(String.valueOf(m.getValueAt(i,3).toString()));
-  emp.gf.setParentesco(String.valueOf(m.getValueAt(i,4).toString()));
-  emp.gf.nuevoGrupoFamiliar();
- }
- nuevo();
-}
-
-public void nuevo() {
- txtDni.setText("");
- txtCuil.setText("");
- txtNombre.setText("");
- txtApellido.setText("");
+    
+    private void ingresarGrupoFamiliar() {
+        for (int i = 0; i < m.getRowCount(); i++) {
+            
+            emp.gf.setDniEmpleado(Integer.valueOf(txtDni.getText()));
+            emp.gf.setDni(Integer.parseInt(m.getValueAt(i, 0).toString()));
+            emp.gf.setNombre(String.valueOf(m.getValueAt(i, 1).toString()));
+            emp.gf.setApellido(String.valueOf(m.getValueAt(i, 2).toString()));
+            emp.gf.setFechaNac(String.valueOf(m.getValueAt(i, 3).toString()));
+            emp.gf.setParentesco(String.valueOf(m.getValueAt(i, 4).toString()));
+            emp.gf.nuevoGrupoFamiliar();
+        }
+        nuevo();
+    }
+    
+    public void nuevo() {
+        txtDni.setText("");
+        txtCuil.setText("");
+        txtNombre.setText("");
+        txtApellido.setText("");
 // comboEstado.setSelectedIndex(0);
 // comboSexo.setSelectedIndex(0);
- txtTelefono.setText("");
+        txtTelefono.setText("");
 // txtCelular.setText("");
- comboCategoria.setSelectedIndex(0);
- txtMail.setText("");
- diaIngreso.setSelectedIndex(0);
- mesIngreso.setSelectedIndex(0);
- añoIngreso.setSelectedIndex(0);
- diaNac.setSelectedIndex(0);
- mesNac.setSelectedIndex(0);
- añoNac.setSelectedIndex(0);
- txtCalle.setText("");
+        comboCategoria.setSelectedIndex(0);
+        txtMail.setText("");
+        diaIngreso.setSelectedIndex(0);
+        mesIngreso.setSelectedIndex(0);
+        añoIngreso.setSelectedIndex(0);
+        diaNac.setSelectedIndex(0);
+        mesNac.setSelectedIndex(0);
+        añoNac.setSelectedIndex(0);
+        txtCalle.setText("");
 // txtNumero.setText("");
 // comboPiso.setSelectedIndex(0);
 // comboDepartamento.setSelectedIndex(0);
 // comboLocalidad.setSelectedIndex(0);
- txtDniGrupo.setText("");
- txtNombreGrupo.setText("");
- txtApellidoGrupo.setText("");
- comboDia.setSelectedIndex(0);
- comboMes.setSelectedIndex(0);
- comboAño.setSelectedIndex(0);
- comboParentesco.setSelectedIndex(0);
- m.setRowCount(0);
- txtUsuario.setText("");
- txtContra.setText("");
-}
-
-public void verificarTabla(){
- int encontrado=0;
- String[] datos = new String[5];
- if(this.tablaGrupo.getRowCount()==0){
-  encontrado =1;
-  ingresarDatosTablaGrupoFamiliar(datos);
-  m.addRow(datos);
-  centrarDatos();
-  this.tablaGrupo.setModel(m);
- }
- else{
-  for(int i =0; i < m.getRowCount(); i++){
-   String dni = String.valueOf(m.getValueAt(i,0).toString());
-   if(dni.equals(txtDniGrupo.getText().toString())){
-   ingresarDatosTablaGrupoFamiliar(datos);
-   m.removeRow(i);
-   m.addRow(datos);
-   centrarDatos();
-   tablaGrupo.setModel(m);
-   i=m.getRowCount();
-   encontrado=1;
-  }}}
- if(encontrado==0){
-  ingresarDatosTablaGrupoFamiliar(datos);
-  m.addRow(datos);
-  centrarDatos();
-  tablaGrupo.setModel(m);
- }
-}
+        txtDniGrupo.setText("");
+        txtNombreGrupo.setText("");
+        txtApellidoGrupo.setText("");
+        comboDia.setSelectedIndex(0);
+        comboMes.setSelectedIndex(0);
+        comboAño.setSelectedIndex(0);
+        comboParentesco.setSelectedIndex(0);
+        m.setRowCount(0);
+        txtUsuario.setText("");
+        txtContra.setText("");
+    }
+    
+    public void verificarTabla() {
+        int encontrado = 0;
+        String[] datos = new String[5];
+        if (this.tablaGrupo.getRowCount() == 0) {
+            encontrado = 1;
+            ingresarDatosTablaGrupoFamiliar(datos);
+            m.addRow(datos);
+            centrarDatos();
+            this.tablaGrupo.setModel(m);
+        } else {
+            for (int i = 0; i < m.getRowCount(); i++) {
+                String dni = String.valueOf(m.getValueAt(i, 0).toString());
+                if (dni.equals(txtDniGrupo.getText().toString())) {
+                    ingresarDatosTablaGrupoFamiliar(datos);
+                    m.removeRow(i);
+                    m.addRow(datos);
+                    centrarDatos();
+                    tablaGrupo.setModel(m);
+                    i = m.getRowCount();
+                    encontrado = 1;
+                }
+            }
+        }
+        if (encontrado == 0) {
+            ingresarDatosTablaGrupoFamiliar(datos);
+            m.addRow(datos);
+            centrarDatos();
+            tablaGrupo.setModel(m);
+        }
+    }
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
- 
+        
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void txtDniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDniKeyTyped
-     int k=(int)evt.getKeyChar();
-     Numeros(k,evt);
-     if (txtDni.getText().length()== 8){
-      evt.consume();
-     }
+        int k = (int) evt.getKeyChar();
+        Numeros(k, evt);
+        if (txtDni.getText().length() == 8) {
+            evt.consume();
+        }
     }//GEN-LAST:event_txtDniKeyTyped
 
     private void txtCuilKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCuilKeyTyped
-     int k=(int)evt.getKeyChar();
-     Numeros(k,evt);
-     if (txtCuil.getText().length()==20){
-      evt.consume();
-     }
+        int k = (int) evt.getKeyChar();
+        Numeros(k, evt);
+        if (txtCuil.getText().length() == 20) {
+            evt.consume();
+        }
     }//GEN-LAST:event_txtCuilKeyTyped
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-      if(!txtDniGrupo.getText().equals("")&&!txtNombreGrupo.getText().equals("") && !txtApellidoGrupo.getText().equals("")
-       && comboDia.getSelectedIndex()!=0  && comboMes.getSelectedIndex()!=0  && comboAño.getSelectedIndex()!=0 && comboParentesco.getSelectedIndex()!=0){
-       String mes = String.valueOf(comboMes.getSelectedIndex());
-       String fecha = comboDia.getSelectedItem().toString() + "/" + mes + "/" + comboAño.getSelectedItem().toString();
-       if(emp.fh.confirmarFecha(fecha)== true){
-       verificarTabla();
-       txtDniGrupo.setText("");
-       txtNombreGrupo.setText("");
-       txtApellidoGrupo.setText("");
-       comboParentesco.setSelectedIndex(0);
-       comboDia.setSelectedIndex(0);
-       comboMes.setSelectedIndex(0);
-       comboAño.setSelectedIndex(0);
-       txtDniGrupo.requestFocus();
-       }
-       else{
-        JOptionPane.showMessageDialog(null,"Fecha de Nacimiento Incorrecta", "Error", JOptionPane.ERROR_MESSAGE);   
-       }
-      }
-      else{
-       JOptionPane.showMessageDialog(null,"INGRESE DATOS", "Error", JOptionPane.ERROR_MESSAGE);
-      }
+        if (!txtDniGrupo.getText().equals("") && !txtNombreGrupo.getText().equals("") && !txtApellidoGrupo.getText().equals("")
+                && comboDia.getSelectedIndex() != 0 && comboMes.getSelectedIndex() != 0 && comboAño.getSelectedIndex() != 0 && comboParentesco.getSelectedIndex() != 0) {
+            String mes = String.valueOf(comboMes.getSelectedIndex());
+            String fecha = comboDia.getSelectedItem().toString() + "/" + mes + "/" + comboAño.getSelectedItem().toString();
+            if (emp.fh.confirmarFecha(fecha) == true) {
+                verificarTabla();
+                txtDniGrupo.setText("");
+                txtNombreGrupo.setText("");
+                txtApellidoGrupo.setText("");
+                comboParentesco.setSelectedIndex(0);
+                comboDia.setSelectedIndex(0);
+                comboMes.setSelectedIndex(0);
+                comboAño.setSelectedIndex(0);
+                txtDniGrupo.requestFocus();
+            } else {
+                JOptionPane.showMessageDialog(null, "Fecha de Nacimiento Incorrecta", "Error", JOptionPane.ERROR_MESSAGE);                
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "INGRESE DATOS", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-   
+        
     }//GEN-LAST:event_formWindowOpened
 
     private void tablaGrupoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaGrupoMouseClicked
-      Object [] opciones ={"Aceptar","Cancelar"};
-     int eleccion = JOptionPane.showOptionDialog(null,"Desea Eliminarlo del Grupo Familiar","Confirmar",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,opciones,"Aceptar");
-      if (eleccion == JOptionPane.YES_OPTION){
-       m.removeRow(tablaGrupo.getSelectedRow());
-      }
+        Object[] opciones = {"Aceptar", "Cancelar"};
+        int eleccion = JOptionPane.showOptionDialog(null, "Desea Eliminarlo del Grupo Familiar", "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, "Aceptar");
+        if (eleccion == JOptionPane.YES_OPTION) {
+            m.removeRow(tablaGrupo.getSelectedRow());
+        }
     }//GEN-LAST:event_tablaGrupoMouseClicked
 
     private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
-     int k=(int)evt.getKeyChar();
-     Numeros(k,evt);
-     if (txtTelefono.getText().length()== 12){
-      evt.consume();
-     }
+        int k = (int) evt.getKeyChar();
+        Numeros(k, evt);
+        if (txtTelefono.getText().length() == 12) {
+            evt.consume();
+        }
     }//GEN-LAST:event_txtTelefonoKeyTyped
 
     private void txtDniGrupoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDniGrupoKeyTyped
-     int k=(int)evt.getKeyChar();
-     Numeros(k,evt);
-     if (txtDniGrupo.getText().length()== 8){
-      evt.consume();
-     }
+        int k = (int) evt.getKeyChar();
+        Numeros(k, evt);
+        if (txtDniGrupo.getText().length() == 8) {
+            evt.consume();
+        }
     }//GEN-LAST:event_txtDniGrupoKeyTyped
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
-     int k=(int)evt.getKeyChar();
-     if (k >= 0 && k <= 31 || k >= 33 && k <= 64 || k>=91 && k<=96 || k>=123 && k<=255){
-      evt.setKeyChar((char)KeyEvent.VK_CLEAR);
-     }
+        int k = (int) evt.getKeyChar();
+        if (k >= 0 && k <= 31 || k >= 33 && k <= 64 || k >= 91 && k <= 96 || k >= 123 && k <= 255) {
+            evt.setKeyChar((char) KeyEvent.VK_CLEAR);
+        }
     }//GEN-LAST:event_txtNombreKeyTyped
 
     private void txtApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyTyped
-     int k=(int)evt.getKeyChar();
-     if (k >= 0 && k <= 31 || k >= 33 && k <= 64 || k>=91 && k<=96 || k>=123 && k<=255){
-      evt.setKeyChar((char)KeyEvent.VK_CLEAR);
-     }
+        int k = (int) evt.getKeyChar();
+        if (k >= 0 && k <= 31 || k >= 33 && k <= 64 || k >= 91 && k <= 96 || k >= 123 && k <= 255) {
+            evt.setKeyChar((char) KeyEvent.VK_CLEAR);
+        }
     }//GEN-LAST:event_txtApellidoKeyTyped
 
     private void txtNombreGrupoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreGrupoKeyTyped
-     int k=(int)evt.getKeyChar();
-     if (k >= 0 && k <= 31 || k >= 33 && k <= 64 || k>=91 && k<=96 || k>=123 && k<=255){
-      evt.setKeyChar((char)KeyEvent.VK_CLEAR);
-     }
+        int k = (int) evt.getKeyChar();
+        if (k >= 0 && k <= 31 || k >= 33 && k <= 64 || k >= 91 && k <= 96 || k >= 123 && k <= 255) {
+            evt.setKeyChar((char) KeyEvent.VK_CLEAR);
+        }
     }//GEN-LAST:event_txtNombreGrupoKeyTyped
 
     private void txtApellidoGrupoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoGrupoKeyTyped
-     int k=(int)evt.getKeyChar();
-     if (k >= 0 && k <= 31 || k >= 33 && k <= 64 || k>=91 && k<=96 || k>=123 && k<=255){
-      evt.setKeyChar((char)KeyEvent.VK_CLEAR);
-     }
+        int k = (int) evt.getKeyChar();
+        if (k >= 0 && k <= 31 || k >= 33 && k <= 64 || k >= 91 && k <= 96 || k >= 123 && k <= 255) {
+            evt.setKeyChar((char) KeyEvent.VK_CLEAR);
+        }
     }//GEN-LAST:event_txtApellidoGrupoKeyTyped
 
     private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed
@@ -1196,68 +1232,76 @@ public void verificarTabla(){
     private void txtCalleKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCalleKeyTyped
         //     int k=(int)evt.getKeyChar();
         //     if (k >= 0 && k <= 31 || k >= 33 && k <= 64 || k>=91 && k<=96 || k>=123 && k<=255){
-            //      evt.setKeyChar((char)KeyEvent.VK_CLEAR);
-            //     }
+        //      evt.setKeyChar((char)KeyEvent.VK_CLEAR);
+        //     }
     }//GEN-LAST:event_txtCalleKeyTyped
-
-private void ingresarDatosTablaGrupoFamiliar(String[] datos) {
- datos[0]= txtDniGrupo.getText();
- datos[1] = txtApellidoGrupo.getText();
- datos[2] = txtNombreGrupo.getText();
- datos[3]= comboAño.getSelectedItem().toString()+ "/" + comboMes.getSelectedIndex()+ "/" +comboDia.getSelectedItem().toString() ;
- datos[4]= comboParentesco.getSelectedItem().toString();
-}
-
-private void Numeros(int k, KeyEvent evt) {
- if (k >= 32 && k <= 47 || k>=58 && k<=255){
-  evt.setKeyChar((char)KeyEvent.VK_CLEAR);
- }
-}
-
-
-private Boolean validarFechaNacimiento() {
- String mes = String.valueOf(mesNac.getSelectedIndex());
- String fecha = diaNac.getSelectedItem().toString() + "/" + mes + "/" + añoNac.getSelectedItem().toString();
- try {
-  SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy",Locale.getDefault());
-  formatoFecha.setLenient(false);
-  formatoFecha.parse(fecha);
- }
- catch (ParseException e) {
-  return false;
- }
- return true;
-}
-
-private boolean buscaDni(String dni) {
+    
+    private void ingresarDatosTablaGrupoFamiliar(String[] datos) {
+        datos[0] = txtDniGrupo.getText();
+        datos[1] = txtApellidoGrupo.getText();
+        datos[2] = txtNombreGrupo.getText();
+        datos[3] = comboAño.getSelectedItem().toString() + "/" + comboMes.getSelectedIndex() + "/" + comboDia.getSelectedItem().toString();
+        datos[4] = comboParentesco.getSelectedItem().toString();
+    }
+    
+    private void Numeros(int k, KeyEvent evt) {
+        if (k >= 32 && k <= 47 || k >= 58 && k <= 255) {
+            evt.setKeyChar((char) KeyEvent.VK_CLEAR);
+        }
+    }
+    
+    private Boolean validarFechaNacimiento() {
+        String mes = String.valueOf(mesNac.getSelectedIndex());
+        String fecha = diaNac.getSelectedItem().toString() + "/" + mes + "/" + añoNac.getSelectedItem().toString();
+        try {
+            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            formatoFecha.setLenient(false);
+            formatoFecha.parse(fecha);
+        } catch (ParseException e) {
+            return false;
+        }
+        return true;
+    }
+    
+    private boolean buscaDni(String dni) {
         txtDni.getText();
         emp.setDni(Integer.parseInt(txtDni.getText()));
         return emp.buscar();
     }
-
-private boolean buscaDni2(String dni) {
+    
+    private boolean buscaDni2(String dni) {
         boolean resultado = false;
-    if(!txtDniGrupo.getText().equals("")){
-        gf.setDni(Integer.parseInt(txtDniGrupo.getText()));
-        resultado = gf.buscar();
-    }
-      return resultado;
+        if (!txtDniGrupo.getText().equals("")) {
+            gf.setDni(Integer.parseInt(txtDniGrupo.getText()));
+            resultado = gf.buscar();
+        }
+        return resultado;
     }
 
-public static void main(String args[]) {
-java.awt.EventQueue.invokeLater(new Runnable() {
-public void run() {
- nuevoEmpleados dialog = new nuevoEmpleados(new javax.swing.JFrame(), true);
- dialog.addWindowListener(new java.awt.event.WindowAdapter() {
- @Override
-public void windowClosing(java.awt.event.WindowEvent e) {
- System.exit(0);
-}
-});
-dialog.setVisible(true);
-}
-});
-}
+    public static JComboBox getComboLocalidad() {
+        return comboLocalidad;
+    }
+
+    public static JComboBox getComboProvincia() {
+        return comboProvincia;
+    }
+    
+    
+    
+    public static void main(String args[]) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                nuevoEmpleados dialog = new nuevoEmpleados(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox añoIngreso;
@@ -1270,12 +1314,13 @@ dialog.setVisible(true);
     private javax.swing.JComboBox comboAño;
     public static javax.swing.JComboBox comboCategoria;
     private javax.swing.JComboBox comboDia;
-    private javax.swing.JComboBox comboLocalidad;
+    private static javax.swing.JComboBox comboLocalidad;
     private javax.swing.JComboBox comboMes;
     private javax.swing.JComboBox comboParentesco;
-    private javax.swing.JComboBox comboProvincia;
+    private static javax.swing.JComboBox comboProvincia;
     private javax.swing.JComboBox diaIngreso;
     private javax.swing.JComboBox diaNac;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -1294,6 +1339,7 @@ dialog.setVisible(true);
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -1329,9 +1375,9 @@ dialog.setVisible(true);
     private javax.swing.JTextField txtMail;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtNombreGrupo;
+    private javax.swing.JTextField txtNumero;
     private javax.swing.JTextField txtTelefono;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
-
 
 }

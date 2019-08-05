@@ -28,6 +28,7 @@ import Ventas.reporteVentas;
 import finalgestion.ventanaPrincipal;
 import Liquidacion.detalleLiquidacionn;
 import Servicios.nuevoServicio;
+import direccion.Domicilio;
 import java.sql.*;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
@@ -40,7 +41,7 @@ public class Operaciones {
     Conexion con = new Conexion();
     DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel();
 
-    public Boolean nuevoEmpleado(int dni, int categoria, String nombre, String apellido, String fechaNac, long cuil, String fechaIngreso, long telefono, String Email, String direccion, int estado) {
+    public Boolean nuevoEmpleado(int dni, int categoria, String nombre, String apellido, String fechaNac, long cuil, String fechaIngreso, long telefono, String Email, Domicilio domicilio, int estado) {
         try {
             con.conectarBaseDeDatos();
             PreparedStatement pstm3 = con.getConnection().prepareStatement("SELECT dniEmpleado FROM empleados WHERE dniEmpleado = '" + dni + "'");
@@ -51,7 +52,26 @@ public class Operaciones {
                 return false;
             } else {
                 con.conectarBaseDeDatos();
-                PreparedStatement pstm = con.getConnection().prepareStatement("INSERT into empleados(dniEmpleado,idCategoria,nombre,apellido,fechaNacimiento,cuil,fechadeingreso,telefono,Mail,direccion,estado) values(?,?,?,?,?,?,?,?,?,?,?)");
+                
+                PreparedStatement pstmDomicilio = con.getConnection().prepareStatement("INSERT into domicilio(calle,numero,idLocalidad) values(?,?,?)");
+                pstmDomicilio.setString(1,domicilio.getCalle());
+                pstmDomicilio.setInt(2,domicilio.getNumero());
+                pstmDomicilio.setInt(1,domicilio.getLocalidad().getIdLocalidad());
+                boolean bdomicilio = pstmDomicilio.execute();
+                if(bdomicilio){
+                    pstmDomicilio = con.getConnection().prepareStatement("select * from domicilio order by idDomicilio desc limit 1");
+                    ResultSet restultDomicilio = pstmDomicilio.executeQuery();
+                    if(restultDomicilio.next()){
+                        domicilio.setIdDomicilio(restultDomicilio.getInt("idDomicilio"));
+                    }
+                }
+                PreparedStatement pstm = null;
+                if(bdomicilio){
+                     pstm = con.getConnection().prepareStatement("INSERT into empleados(dniEmpleado,idCategoria,nombre,apellido,fechaNacimiento,cuil,fechadeingreso,telefono,Mail,estado) values(?,?,?,?,?,?,?,?,?,?)");
+                }else{
+                    pstm = con.getConnection().prepareStatement("INSERT into empleados(dniEmpleado,idCategoria,nombre,apellido,fechaNacimiento,cuil,fechadeingreso,telefono,Mail,estado,idDomicilio) values(?,?,?,?,?,?,?,?,?,?,?)");
+                    pstm.setInt(11, domicilio.getIdDomicilio());
+                }
                 pstm.setInt(1, dni);
                 pstm.setInt(2, categoria);
                 pstm.setString(3, nombre);
@@ -61,8 +81,7 @@ public class Operaciones {
                 pstm.setString(7, fechaIngreso);
                 pstm.setLong(8, telefono);
                 pstm.setString(9, Email);
-                pstm.setString(10, direccion);
-                pstm.setInt(11, estado);
+                pstm.setInt(10, estado);
                 pstm.execute();
                 pstm.close();
 //  PreparedStatement pstm2 = con.getConnection().prepareStatement("INSERT into direccion(idLocalidad,dniEmpleado,Calle,Numero,piso,departamento) values(?,?,?,?,?,?)");
@@ -274,7 +293,9 @@ public class Operaciones {
         listadoEmpleados.m.setRowCount(0);
         listadoEmpleados.m.setColumnCount(0);
         try {
-            PreparedStatement pstm = con.getConnection().prepareStatement("SELECT emp.dniEmpleado,emp.cuil, emp.Nombre,emp.Apellido,emp.telefono,emp.Mail,emp.direccion, cat.Puesto FROM empleados emp, categoria cat WHERE  emp.idCategoria=cat.idCategoria AND emp.estado =1"); // puede haber error // emp.dniEmpleado = cat.dniempleado  AND emp.idCategoria = cat.idCategoria AND
+            PreparedStatement pstm = con.getConnection().prepareStatement("SELECT emp.dniEmpleado as DNI,emp.cuil AS CUIL,"
+                    + " emp.Nombre,emp.Apellido,emp.telefono AS Telefono,emp.Mail,CONCAT(dom.idDomicilio,'-',dom.calle,' ',dom.numero) as Domicilio,"
+                    + " cat.Puesto FROM empleados emp, categoria cat, domicilio dom WHERE  emp.idCategoria=cat.idCategoria AND emp.idDomicilio=dom.idDomicilio AND emp.estado =1"); // puede haber error // emp.dniEmpleado = cat.dniempleado  AND emp.idCategoria = cat.idCategoria AND
             ResultSet res = pstm.executeQuery();
             ResultSetMetaData rsmd = res.getMetaData();
             int cantidadColumnas = rsmd.getColumnCount();

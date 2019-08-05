@@ -51,7 +51,7 @@ private Empleados emp = new Empleados();
 
             },
             new String [] {
-                "Dni", "Nombre", "Apellido", "Telefono", "EMail", "Direccion"
+                "Dni", "Nombre", "Apellido", "Telefono", "EMail", "Domicilio"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -69,11 +69,11 @@ private Empleados emp = new Empleados();
         });
         jScrollPane1.setViewportView(listadoEmpleados);
 
-        jLabel1.setFont(new java.awt.Font("Courier New", 1, 18));
+        jLabel1.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(-1,true));
         jLabel1.setText("BUSCAR:");
 
-        txtBuscar.setFont(new java.awt.Font("Tahoma", 1, 18));
+        txtBuscar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtBuscarKeyReleased(evt);
@@ -85,8 +85,8 @@ private Empleados emp = new Empleados();
 
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/buscar.png"))); // NOI18N
         btnBuscar.setText("BUSCAR");
-        btnBuscar.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
-        btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBuscar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
@@ -95,8 +95,8 @@ private Empleados emp = new Empleados();
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cancelar.png"))); // NOI18N
         btnCancelar.setText("CANCELAR");
-        btnCancelar.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
-        btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancelar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
@@ -105,8 +105,8 @@ private Empleados emp = new Empleados();
 
         btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Salir.png"))); // NOI18N
         btnSalir.setText("Salir");
-        btnSalir.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
-        btnSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSalir.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnSalir.setFocusable(false);
         btnSalir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnSalir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -118,8 +118,8 @@ private Empleados emp = new Empleados();
 
         btnPdf.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Pdf.png"))); // NOI18N
         btnPdf.setText("Exportar");
-        btnPdf.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
-        btnPdf.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnPdf.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnPdf.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnPdf.setFocusable(false);
         btnPdf.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnPdf.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -131,8 +131,8 @@ private Empleados emp = new Empleados();
 
         btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/eliminar.jpg"))); // NOI18N
         btnEliminar.setText("Eliminar");
-        btnEliminar.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
-        btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEliminar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnEliminar.setFocusable(false);
         btnEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnEliminar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -144,8 +144,8 @@ private Empleados emp = new Empleados();
 
         btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/actualizar.png"))); // NOI18N
         btnActualizar.setText("Actualizar");
-        btnActualizar.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
-        btnActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnActualizar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnActualizar.setFocusable(false);
         btnActualizar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnActualizar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -157,8 +157,8 @@ private Empleados emp = new Empleados();
 
         btnRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/nuevo.png"))); // NOI18N
         btnRegistrar.setText("Registrar");
-        btnRegistrar.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
-        btnRegistrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegistrar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnRegistrar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnRegistrar.setFocusable(false);
         btnRegistrar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnRegistrar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
